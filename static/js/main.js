@@ -2,7 +2,6 @@
  * Lyn's Furniture Miami - Main JavaScript
  */
 
-console.log("Lyn's Furniture Miami - Website Loaded");
 
 document.addEventListener('DOMContentLoaded', function() {
     // Smooth scroll for anchor links

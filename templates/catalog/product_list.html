@@ -258,6 +258,20 @@ function buildModalHTML(p) {
                     ${variantOptions}
 
                     <div class="mt-auto pt-6">
+                        <!-- Quantity selector -->
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-sm font-semibold text-gray-700">Quantity:</span>
+                            <div class="flex items-center border-2 border-gray-200 rounded-lg overflow-hidden">
+                                <button type="button" id="modal-qty-minus"
+                                    class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors text-xl font-bold select-none">−</button>
+                                <input type="number" id="modal-qty-input"
+                                    value="1" min="1"
+                                    class="w-14 h-10 text-center font-semibold text-gray-900 border-x-2 border-gray-200 focus:outline-none focus:bg-blue-50"
+                                />
+                                <button type="button" id="modal-qty-plus"
+                                    class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors text-xl font-bold select-none">+</button>
+                            </div>
+                        </div>
                         <button id="modal-add-cart-btn"
                             class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-3 transition-all"
                             data-product-id="${p.id}"
@@ -312,12 +326,33 @@ function initModalInteractions(p) {
     const firstVariantBtn = document.querySelector('.modal-variant-btn');
     if (firstVariantBtn) selectModalVariant(firstVariantBtn);
 
+    // Quantity controls
+    const qtyInput = document.getElementById('modal-qty-input');
+    const qtyMinus = document.getElementById('modal-qty-minus');
+    const qtyPlus  = document.getElementById('modal-qty-plus');
+
+    qtyMinus.addEventListener('click', function() {
+        const val = parseInt(qtyInput.value) || 1;
+        if (val > 1) qtyInput.value = val - 1;
+    });
+
+    qtyPlus.addEventListener('click', function() {
+        const val = parseInt(qtyInput.value) || 1;
+        qtyInput.value = val + 1;
+    });
+
+    qtyInput.addEventListener('change', function() {
+        const val = parseInt(this.value);
+        if (!val || val < 1) this.value = 1;
+    });
+
     addBtn.addEventListener('click', function() {
         const productId = this.dataset.productId;
         const variantId = this.dataset.variantId;
+        const quantity  = parseInt(qtyInput.value) || 1;
         const originalHTML = this.innerHTML;
 
-        const body = 'quantity=1' + (variantId ? '&color_id=' + variantId : '');
+        const body = 'quantity=' + quantity + (variantId ? '&color_id=' + variantId : '');
 
         fetch('/cart/add/' + productId + '/', {
             method: 'POST',
@@ -327,23 +362,23 @@ function initModalInteractions(p) {
             },
             body: body
         })
-        .then(r => r.json())
-        .then(data => {
-            if (data.status === 'success') {
+        .then(r => r.json().then(data => ({ ok: r.ok, data })))
+        .then(({ ok, data }) => {
+            if (ok && data.status === 'success') {
                 addBtn.innerHTML = '<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Added!';
-                addBtn.classList.replace('bg-blue-600', 'bg-green-600');
-                addBtn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
-                updateCartBadge(data.cart_total_items);
+                addBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                addBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                if (typeof updateCartBadge === 'function') updateCartBadge(data.cart_total_items);
                 setTimeout(() => {
                     addBtn.innerHTML = originalHTML;
-                    addBtn.classList.replace('bg-green-600', 'bg-blue-600');
-                    addBtn.classList.replace('hover:bg-green-700', 'hover:bg-blue-700');
+                    addBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    addBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
                 }, 2000);
             } else {
                 alert(data.message || 'Could not add to cart.');
             }
         })
-        .catch(() => alert('Network error. Please try again.'));
+        .catch(err => console.error('Cart error:', err));
     });
 }
 </script>
