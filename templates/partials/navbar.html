@@ -1,0 +1,76 @@
+{% load static %}
+{# Sticky Navbar - included on all secondary pages #}
+
+<nav class="sticky top-0 z-50 bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+
+            <!-- Logo -->
+            <a href="{% url 'catalog:home' %}" class="flex-shrink-0">
+                <img src="{% static 'images/logo.png' %}" alt="Lyn's Furniture Miami" class="h-10 w-auto" />
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="{% url 'catalog:home' %}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Home
+                </a>
+                <a href="{% url 'catalog:category_list' %}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Shop
+                </a>
+                <a href="{% url 'catalog:home' %}#store-location" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Our Stores
+                </a>
+            </div>
+
+            <!-- Right: Cart + Mobile Menu -->
+            <div class="flex items-center gap-4">
+                <!-- Cart Icon -->
+                <a href="{% url 'cart:cart_page' %}" class="relative p-2 text-gray-700 hover:text-blue-600 transition-colors">
+                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+                    </svg>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-700 hover:text-blue-600 transition-colors">
+                    <svg class="w-6 h-6" id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg class="w-6 h-6 hidden" id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-gray-100 mt-2 pt-4">
+            <div class="flex flex-col gap-3">
+                <a href="{% url 'catalog:home' %}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Home</a>
+                <a href="{% url 'catalog:category_list' %}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Shop</a>
+                <a href="{% url 'catalog:home' %}#store-location" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Our Stores</a>
+                <a href="{% url 'cart:cart_page' %}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Cart</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // Mobile menu toggle
+    (function() {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                menu.classList.toggle('hidden');
+                iconOpen.classList.toggle('hidden');
+                iconClose.classList.toggle('hidden');
+            });
+        }
+    })();
+</script>

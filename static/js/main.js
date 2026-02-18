@@ -4,10 +4,9 @@
 
 console.log("Lyn's Furniture Miami - Website Loaded");
 
-// Smooth scroll for anchor links
 document.addEventListener('DOMContentLoaded', function() {
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    anchorLinks.forEach(anchor => {
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
             if (targetId !== '#') {
@@ -20,14 +19,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add to Cart buttons
+    // Add to Cart buttons (home page + product list)
     document.querySelectorAll('.add-to-cart-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
-            const productId = this.dataset.productId;
-            addToCart(productId, this);
+            addToCart(this.dataset.productId, this);
         });
     });
+
+    // Load cart badge count in navbar
+    loadCartBadge();
 });
+
+// ─── Cart Badge ────────────────────────────────────────────────────────────────
+
+function loadCartBadge() {
+    fetch('/cart/detail/')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            const count = data.total_items || 0;
+            updateCartBadge(count);
+        })
+        .catch(function() { /* silently ignore */ });
+}
+
+function updateCartBadge(count) {
+    const badge = document.getElementById('cart-badge');
+    if (!badge) return;
+    if (count > 0) {
+        badge.textContent = count > 99 ? '99+' : count;
+        badge.classList.remove('hidden');
+    } else {
+        badge.classList.add('hidden');
+    }
+}
+
+// ─── Add to Cart ───────────────────────────────────────────────────────────────
 
 function addToCart(productId, btn) {
     const originalHTML = btn ? btn.innerHTML : '';
@@ -40,9 +66,10 @@ function addToCart(productId, btn) {
         },
         body: 'quantity=1'
     })
-    .then(function(response) { return response.json(); })
+    .then(function(r) { return r.json(); })
     .then(function(data) {
         if (data.status === 'success') {
+            updateCartBadge(data.cart_total_items);
             if (btn) {
                 btn.innerHTML = '<svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Added!';
                 btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
@@ -61,6 +88,8 @@ function addToCart(productId, btn) {
         alert('Network error. Please try again.');
     });
 }
+
+// ─── Cookie Helper ─────────────────────────────────────────────────────────────
 
 function getCookie(name) {
     let cookieValue = null;

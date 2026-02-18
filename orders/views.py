@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from cart.cart import Cart
 from .forms import OrderCreateForm
-from .models import OrderItem
+from .models import Order, OrderItem
 
 
 def order_create(request):
@@ -58,4 +58,5 @@ def order_success(request, order_id):
     """
     Order success page
     """
-    return render(request, 'orders/order_success.html', {'order_id': order_id})
+    order = get_object_or_404(Order, pk=order_id)
+    return render(request, 'orders/order_success.html', {'order': order})

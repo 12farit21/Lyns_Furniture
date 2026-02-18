@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shopping Cart - Lyn's Furniture Miami{% endblock %}
+
+{% block content %}
+{% include 'partials/navbar.html' %}
+
+<!-- Page Banner -->
+<div class="bg-gradient-to-r from-blue-600 to-indigo-700 py-10 lg:py-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <h1 class="text-3xl lg:text-4xl font-bold mb-2">Shopping Cart</h1>
+        <nav class="flex items-center gap-2 text-blue-200 text-sm mt-3">
+            <a href="{% url 'catalog:home' %}" class="hover:text-white transition-colors">Home</a>
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-white font-medium">Cart</span>
+        </nav>
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    {% if cart|length == 0 %}
+    <!-- Empty Cart -->
+    <div class="text-center py-24">
+        <div class="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-12 h-12 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+            </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Your cart is empty</h2>
+        <p class="text-gray-600 mb-8 max-w-md mx-auto">Looks like you haven't added any furniture yet. Discover amazing deals in our store!</p>
+        <a href="{% url 'catalog:category_list' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl">
+            Shop Now
+        </a>
+    </div>
+
+    {% else %}
+    <!-- Cart with Items -->
+    <div class="flex flex-col lg:flex-row gap-8">
+
+        <!-- Cart Items -->
+        <div class="flex-1">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Your Items ({{ cart|length }})</h2>
+
+            <div class="space-y-4" id="cart-items">
+                {% for item in cart %}
+                <div class="bg-white rounded-xl shadow-md p-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center"
+                     data-product-id="{{ item.product.id }}"
+                     data-variant-id="{{ item.variant_id|default:'' }}">
+
+                    <!-- Product Image -->
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 overflow-hidden rounded-lg">
+                        <img
+                            src="{{ item.product.get_primary_image_url }}"
+                            alt="{{ item.product.name }}"
+                            class="w-full h-full object-cover"
+                        />
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-semibold text-gray-900 truncate">{{ item.product.name }}</h3>
+                        {% if item.variant %}
+                        <p class="text-sm text-gray-500 mt-0.5">{{ item.variant.get_display_name }}</p>
+                        {% endif %}
+                        <p class="text-blue-600 font-bold mt-1">${{ item.price }}</p>
+                    </div>
+
+                    <!-- Quantity Stepper -->
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <button
+                            class="cart-qty-btn w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors font-bold"
+                            data-action="decrease"
+                            data-product-id="{{ item.product.id }}"
+                            data-variant-id="{{ item.variant_id|default:'' }}"
+                            data-current="{{ item.quantity }}"
+                        >−</button>
+                        <span class="w-8 text-center font-semibold text-gray-900">{{ item.quantity }}</span>
+                        <button
+                            class="cart-qty-btn w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors font-bold"
+                            data-action="increase"
+                            data-product-id="{{ item.product.id }}"
+                            data-variant-id="{{ item.variant_id|default:'' }}"
+                            data-current="{{ item.quantity }}"
+                        >+</button>
+                    </div>
+
+                    <!-- Line Total -->
+                    <div class="text-right flex-shrink-0 min-w-[80px]">
+                        <p class="font-bold text-gray-900">${{ item.total_price }}</p>
+                    </div>
+
+                    <!-- Remove Button -->
+                    <button
+                        class="cart-remove-btn p-2 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0"
+                        data-product-id="{{ item.product.id }}"
+                        data-variant-id="{{ item.variant_id|default:'' }}"
+                        title="Remove item"
+                    >
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Continue Shopping -->
+            <div class="mt-6">
+                <a href="{% url 'catalog:category_list' %}" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m7-7l-7 7 7 7"/></svg>
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="lg:w-80 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-md p-6 sticky top-20">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
+
+                <div class="space-y-3 mb-6 pb-6 border-b border-gray-100">
+                    {% for item in cart %}
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span class="truncate pr-2">{{ item.product.name }}{% if item.variant %} ({{ item.variant.get_display_name }}){% endif %} × {{ item.quantity }}</span>
+                        <span class="font-medium text-gray-900 flex-shrink-0">${{ item.total_price }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-lg font-bold text-gray-900">Total</span>
+                    <span class="text-2xl font-bold text-blue-600">${{ cart.get_total_price }}</span>
+                </div>
+
+                <a href="{% url 'orders:order_create' %}" class="block w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold text-center text-lg transition-all shadow-lg hover:shadow-xl">
+                    Checkout
+                </a>
+
+                <div class="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500">
+                    <svg class="w-4 h-4 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    Secure checkout
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% include 'partials/footer.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Quantity change buttons
+    document.querySelectorAll('.cart-qty-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const productId = this.dataset.productId;
+            const variantId = this.dataset.variantId;
+            const current = parseInt(this.dataset.current);
+            const action = this.dataset.action;
+            const newQty = action === 'increase' ? current + 1 : current - 1;
+            updateCartItem(productId, variantId, newQty);
+        });
+    });
+
+    // Remove buttons
+    document.querySelectorAll('.cart-remove-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const productId = this.dataset.productId;
+            const variantId = this.dataset.variantId;
+            removeCartItem(productId, variantId);
+        });
+    });
+});
+
+function updateCartItem(productId, variantId, quantity) {
+    const body = 'quantity=' + quantity + (variantId ? '&variant_id=' + variantId : '');
+    fetch('/cart/update/' + productId + '/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: body
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.status === 'success') window.location.reload();
+        else alert(data.message || 'Error updating cart.');
+    })
+    .catch(() => alert('Network error.'));
+}
+
+function removeCartItem(productId, variantId) {
+    const body = variantId ? 'variant_id=' + variantId : '';
+    fetch('/cart/remove/' + productId + '/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: body
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.status === 'success') window.location.reload();
+        else alert(data.message || 'Error removing item.');
+    })
+    .catch(() => alert('Network error.'));
+}
+</script>
+{% endblock %}

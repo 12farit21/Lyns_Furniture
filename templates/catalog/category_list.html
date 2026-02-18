@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop by Category - Lyn's Furniture Miami{% endblock %}
+
+{% block content %}
+{% include 'partials/navbar.html' %}
+
+<!-- Page Banner -->
+<div class="bg-gradient-to-r from-blue-600 to-indigo-700 py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <h1 class="text-4xl lg:text-5xl font-bold mb-4">Shop by Category</h1>
+        <p class="text-xl text-blue-100 max-w-2xl mx-auto">
+            Find exactly what you need at prices you'll love
+        </p>
+        <!-- Breadcrumb -->
+        <nav class="mt-6 flex items-center justify-center gap-2 text-blue-200 text-sm">
+            <a href="{% url 'catalog:home' %}" class="hover:text-white transition-colors">Home</a>
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-white font-medium">Categories</span>
+        </nav>
+    </div>
+</div>
+
+<!-- Categories Grid -->
+<section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% if categories %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for category in categories %}
+            <a href="{% url 'catalog:product_list' category.slug %}" class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 block">
+                <div class="aspect-[4/3] overflow-hidden">
+                    {% if category.image %}
+                    <img
+                        src="{{ category.image.url }}"
+                        alt="{{ category.name }}"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    {% else %}
+                    <div class="w-full h-full bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center">
+                        <svg class="w-20 h-20 text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    {% endif %}
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h2 class="text-2xl font-bold mb-3">{{ category.name }}</h2>
+                    <span class="inline-flex items-center gap-2 text-white font-semibold group-hover:gap-3 transition-all">
+                        Shop Now
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7l7 7-7 7"/></svg>
+                    </span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-24">
+            <svg class="w-20 h-20 text-gray-300 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10"/>
+            </svg>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">No categories yet</h2>
+            <p class="text-gray-600 mb-8">Check back soon for our latest furniture collections.</p>
+            <a href="{% url 'catalog:home' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-all">
+                Back to Home
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% include 'partials/footer.html' %}
+{% endblock %}

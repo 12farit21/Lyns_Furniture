@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmed #{{ order.id }} - Lyn's Furniture Miami{% endblock %}
+
+{% block content %}
+{% include 'partials/navbar.html' %}
+
+<div class="min-h-screen bg-gray-50 py-16 lg:py-24">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6">
+
+        <!-- Success Card -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <!-- Green header -->
+            <div class="bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-10 text-center text-white">
+                <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold mb-2">Order Confirmed!</h1>
+                <p class="text-green-100 text-lg">Order #{{ order.id }}</p>
+            </div>
+
+            <!-- Order Details -->
+            <div class="px-8 py-8">
+                <p class="text-gray-600 text-center mb-8">
+                    Thank you, <span class="font-semibold text-gray-900">{{ order.full_name }}</span>!<br/>
+                    Your order has been placed and we'll contact you shortly.
+                </p>
+
+                <!-- Info grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Phone</p>
+                        <p class="text-gray-900 font-medium">{{ order.phone }}</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Contact via</p>
+                        <p class="text-gray-900 font-medium">{{ order.get_contact_method_display }}</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 sm:col-span-2">
+                        <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Delivery Address</p>
+                        <p class="text-gray-900 font-medium">{{ order.get_full_address }}</p>
+                    </div>
+                </div>
+
+                <!-- Order Items -->
+                {% if order.items.all %}
+                <div class="border-t border-gray-100 pt-6 mb-6">
+                    <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wide mb-4">Items Ordered</h3>
+                    <div class="space-y-3">
+                        {% for item in order.items.all %}
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-700">
+                                {{ item.product.name }}
+                                {% if item.variant_display_name %}
+                                <span class="text-gray-400">({{ item.variant_display_name }})</span>
+                                {% endif %}
+                                <span class="text-gray-400">× {{ item.quantity }}</span>
+                            </span>
+                            <span class="font-semibold text-gray-900">${{ item.get_total_price }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Total -->
+                <div class="bg-blue-50 rounded-xl p-4 flex justify-between items-center mb-8">
+                    <span class="text-lg font-bold text-gray-900">Total</span>
+                    <span class="text-2xl font-bold text-blue-600">${{ order.total_price }}</span>
+                </div>
+
+                <!-- What's next -->
+                <div class="bg-indigo-50 rounded-xl p-5 mb-8 text-sm text-indigo-800">
+                    <p class="font-semibold mb-2">What happens next?</p>
+                    <ul class="space-y-1 list-disc list-inside text-indigo-700">
+                        <li>Our team will review your order</li>
+                        <li>We'll contact you via {{ order.get_contact_method_display }} at {{ order.phone }}</li>
+                        <li>We'll confirm delivery date and schedule</li>
+                    </ul>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'catalog:category_list' %}" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold text-center transition-all shadow-lg hover:shadow-xl">
+                        Continue Shopping
+                    </a>
+                    <a href="{% url 'catalog:home' %}" class="flex-1 bg-white hover:bg-gray-50 text-gray-700 py-4 rounded-xl font-semibold text-center transition-all border border-gray-300">
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Store Contact -->
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            <p>Questions? Call us: <a href="tel:3056361505" class="text-blue-600 hover:text-blue-700 font-medium">(305) 636-1505</a></p>
+            <p class="mt-1">Mon–Sat 9AM–8PM &bull; Sun 10AM–6PM</p>
+        </div>
+    </div>
+</div>
+
+{% include 'partials/footer.html' %}
+{% endblock %}
