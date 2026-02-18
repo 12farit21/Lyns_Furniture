@@ -1,0 +1,61 @@
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from cart.cart import Cart
+from .forms import OrderCreateForm
+from .models import OrderItem
+
+
+def order_create(request):
+    """
+    Create an order from cart contents
+    """
+    cart = Cart(request)
+
+    # Check if cart is empty
+    if len(cart) == 0:
+        return redirect('catalog:home')
+
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            # Create order
+            order = form.save(commit=False)
+            order.total_price = cart.get_total_price()
+            order.save()
+
+            # Create order items
+            for item in cart:
+                # Get variant display name if variant exists
+                variant_display_name = ''
+                if item.get('variant'):
+                    variant_display_name = item['variant'].get_display_name()
+
+                OrderItem.objects.create(
+                    order=order,
+                    product=item['product'],
+                    price=item['price'],
+                    quantity=item['quantity'],
+                    variant_display_name=variant_display_name
+                )
+
+            # Clear the cart
+            cart.clear()
+
+            # Redirect to success page
+            return redirect('orders:order_success', order_id=order.id)
+    else:
+        form = OrderCreateForm()
+
+    context = {
+        'form': form,
+        'cart': cart
+    }
+    return render(request, 'orders/order_create.html', context)
+
+
+def order_success(request, order_id):
+    """
+    Order success page
+    """
+    return render(request, 'orders/order_success.html', {'order_id': order_id})
