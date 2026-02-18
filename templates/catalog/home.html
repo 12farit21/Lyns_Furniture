@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{# Main Index Template - Lyn's Furniture Miami #}
+{# This template extends base.html and includes all section partials #}
+
+{% block content %}
+<div class="min-h-screen bg-white">
+    {# Hero Section with logo, CTAs, and background image #}
+    {% include 'partials/hero.html' %}
+
+    {# Benefits Section - 4-column grid of benefits #}
+    {% include 'partials/benefits.html' %}
+
+    {# Categories Section - dynamic category cards from DB #}
+    {% include 'partials/categories.html' %}
+
+    {# Featured Deals Section - dynamic product cards from DB #}
+    {% include 'partials/featured_deals.html' %}
+
+    {# Customer Reviews Section - 4-column review cards #}
+    {% include 'partials/customer_reviews.html' %}
+
+    {# Store Location Section - 2x2 grid with Google Maps #}
+    {% include 'partials/store_location.html' %}
+
+    {# Footer Section - 4-column footer with links #}
+    {% include 'partials/footer.html' %}
+</div>
+{% endblock %}

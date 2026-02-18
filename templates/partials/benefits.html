@@ -1,0 +1,82 @@
+{# Benefits Section Template #}
+{# In Django, this would loop over benefits passed from views.py context #}
+{# Example Django view context: #}
+{# benefits = [ #}
+{#     {'icon': 'percent', 'title': 'Huge Discounts', 'description': '...', 'color': 'blue'}, #}
+{#     ... #}
+{# ] #}
+
+<section class="py-16 lg:py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Why Choose Lyn's Furniture Miami?
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                We're committed to bringing you the best furniture deals across South Florida
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {# In Django, this would be: {% for benefit in benefits %} #}
+
+            {# Benefit 1 - Huge Discounts #}
+            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow">
+                <div class="bg-blue-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                    {# Percent Icon #}
+                    <svg class="w-7 h-7 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="5" y1="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                    Huge Discounts
+                </h3>
+                <p class="text-gray-600">
+                    Save up to 70% on premium furniture and mattresses daily
+                </p>
+            </div>
+
+            {# Benefit 2 - Quality Guaranteed #}
+            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow">
+                <div class="bg-indigo-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                    {# Shield Icon #}
+                    <svg class="w-7 h-7 text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                    Quality Guaranteed
+                </h3>
+                <p class="text-gray-600">
+                    All furniture backed by manufacturer warranties and our quality promise
+                </p>
+            </div>
+
+            {# Benefit 3 - Free Delivery #}
+            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow">
+                <div class="bg-blue-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                    {# Truck Icon #}
+                    <svg class="w-7 h-7 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                    Free Delivery
+                </h3>
+                <p class="text-gray-600">
+                    Complimentary delivery and setup in South Florida
+                </p>
+            </div>
+
+            {# Benefit 4 - Top Brands #}
+            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow">
+                <div class="bg-indigo-100 w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                    {# Award Icon #}
+                    <svg class="w-7 h-7 text-indigo-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                    Top Brands
+                </h3>
+                <p class="text-gray-600">
+                    Trusted names in furniture at unbeatable discount prices
+                </p>
+            </div>
+
+            {# In Django: {% endfor %} #}
+        </div>
+    </div>
+</section>

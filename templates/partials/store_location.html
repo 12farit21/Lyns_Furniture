@@ -1,0 +1,192 @@
+{# Store Location Section Template #}
+{# In Django: {% for location in locations %} #}
+
+<section id="store-location" class="py-16 lg:py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Visit Our Stores
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                5 convenient South Florida locations to serve you better
+            </p>
+        </div>
+
+        <!-- Store Hours Banner -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white mb-12 text-center">
+            <div class="flex items-center justify-center gap-3 mb-2">
+                {# Clock Icon #}
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <h3 class="text-2xl font-bold">Store Hours</h3>
+            </div>
+            <p class="text-lg">
+                Monday - Saturday: 9:00 AM - 8:00 PM | Sunday: 10:00 AM - 6:00 PM
+            </p>
+        </div>
+
+        <!-- Location Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {# Location 1 - Miami NW 27th Ave #}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="h-64">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3591.234!2d-80.24!3d25.795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDQ3JzQyLjAiTiA4MMKwMTQnMjQuMCJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus"
+                        width="100%"
+                        height="100%"
+                        style="border: 0;"
+                        allowfullscreen="false"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Miami - NW 27th Ave Map"
+                    ></iframe>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Miami - NW 27th Ave</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            {# Map Pin Icon #}
+                            <svg class="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <div>
+                                <p class="text-gray-700">2001 NW 27th Ave.</p>
+                                <p class="text-gray-700">Miami, Florida 33142</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            {# Phone Icon #}
+                            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3056361505" class="text-blue-600 hover:text-blue-700 font-medium">(305) 636-1505</a>
+                        </div>
+                    </div>
+                    <button class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-all">
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+
+            {# Location 2 - Miami NW 167th St #}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="h-64">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3587.123!2d-80.255!3d25.925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDU1JzMwLjAiTiA4MMKwMTUnMTguMCJX!5e0!3m2!1sen!2sus!4v1234567891!5m2!1sen!2sus"
+                        width="100%"
+                        height="100%"
+                        style="border: 0;"
+                        allowfullscreen="false"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Miami - NW 167th St Map"
+                    ></iframe>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Miami - NW 167th St</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <div>
+                                <p class="text-gray-700">4780 NW 167th St.</p>
+                                <p class="text-gray-700">Miami, Florida 33014</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3056230200" class="text-blue-600 hover:text-blue-700 font-medium">(305) 623-0200</a>
+                        </div>
+                    </div>
+                    <button class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-all">
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+
+            {# Location 3 - Hialeah #}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="h-64">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3590.456!2d-80.288!3d25.858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDUxJzI4LjgiTiA4MMKwMTcnMTYuOCJX!5e0!3m2!1sen!2sus!4v1234567892!5m2!1sen!2sus"
+                        width="100%"
+                        height="100%"
+                        style="border: 0;"
+                        allowfullscreen="false"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Hialeah Map"
+                    ></iframe>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Hialeah</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <div>
+                                <p class="text-gray-700">1400 W 49th St</p>
+                                <p class="text-gray-700">Hialeah, FL 33012</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:3056405352" class="text-blue-600 hover:text-blue-700 font-medium">(305) 640-5352</a>
+                        </div>
+                    </div>
+                    <button class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-all">
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+
+            {# Location 4 - Fort Lauderdale #}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="h-64">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3583.789!2d-80.214!3d26.148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDA4JzUyLjgiTiA4MMKwMTInNTAuNCJX!5e0!3m2!1sen!2sus!4v1234567893!5m2!1sen!2sus"
+                        width="100%"
+                        height="100%"
+                        style="border: 0;"
+                        allowfullscreen="false"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Fort Lauderdale Map"
+                    ></iframe>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Fort Lauderdale</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <div>
+                                <p class="text-gray-700">3927 NW 19th St</p>
+                                <p class="text-gray-700">Fort Lauderdale, FL 33311</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <a href="tel:9542705020" class="text-blue-600 hover:text-blue-700 font-medium">(954) 270-5020</a>
+                        </div>
+                    </div>
+                    <button class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-all">
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 lg:p-12 text-white text-center">
+            <h3 class="text-3xl font-bold mb-4">
+                Ready to Save Big on Quality Furniture?
+            </h3>
+            <p class="text-xl text-blue-100 mb-6 max-w-3xl mx-auto">
+                Visit any of our 5 South Florida showrooms and discover incredible deals on sofas,
+                mattresses, bedroom sets, dining furniture, and more. Our friendly team is ready to help
+                you find the perfect pieces for your home!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all shadow-lg">
+                    Shop Online
+                </button>
+                <button class="bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold transition-all shadow-lg">
+                    Call Us Now
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,152 @@
+{# Customer Reviews Section Template #}
+{# In Django: {% for review in reviews %} #}
+
+<section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                What Our Customers Say
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Join thousands of happy customers who saved big on quality furniture
+            </p>
+
+            <!-- Overall Rating -->
+            <div class="flex items-center justify-center gap-3 mt-6">
+                <div class="flex gap-1">
+                    {# Star Icons (filled) #}
+                    <svg class="w-6 h-6 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-6 h-6 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-6 h-6 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-6 h-6 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-6 h-6 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <span class="text-2xl font-bold text-gray-900">5.0</span>
+                <span class="text-gray-600">from 500+ reviews</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {# Review 1 - Maria Rodriguez #}
+            <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow relative">
+                <div class="absolute -top-3 -left-3 bg-blue-600 rounded-full p-2">
+                    {# Quote Icon #}
+                    <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+                </div>
+                <div class="flex gap-1 mb-4">
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="text-gray-700 mb-4 leading-relaxed">
+                    "Found an amazing sectional sofa at 70% off! The quality is excellent and delivery was super fast. Best furniture shopping experience ever!"
+                </p>
+                <div class="border-t border-gray-200 pt-4">
+                    <p class="font-semibold text-gray-900">Maria Rodriguez</p>
+                    <p class="text-sm text-gray-500">Miami Gardens, FL</p>
+                    <p class="text-sm text-gray-400 mt-1">2 weeks ago</p>
+                </div>
+            </div>
+
+            {# Review 2 - James Thompson #}
+            <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow relative">
+                <div class="absolute -top-3 -left-3 bg-blue-600 rounded-full p-2">
+                    <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+                </div>
+                <div class="flex gap-1 mb-4">
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="text-gray-700 mb-4 leading-relaxed">
+                    "Bought a complete bedroom set and saved over $1,500. The staff was helpful and the selection is incredible. Highly recommend!"
+                </p>
+                <div class="border-t border-gray-200 pt-4">
+                    <p class="font-semibold text-gray-900">James Thompson</p>
+                    <p class="text-sm text-gray-500">Opa-locka, FL</p>
+                    <p class="text-sm text-gray-400 mt-1">1 month ago</p>
+                </div>
+            </div>
+
+            {# Review 3 - Carmen Santos #}
+            <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow relative">
+                <div class="absolute -top-3 -left-3 bg-blue-600 rounded-full p-2">
+                    <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+                </div>
+                <div class="flex gap-1 mb-4">
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="text-gray-700 mb-4 leading-relaxed">
+                    "Best mattress I've ever owned at an unbeatable price. Upgraded my whole family's beds from this store. Can't believe the deals!"
+                </p>
+                <div class="border-t border-gray-200 pt-4">
+                    <p class="font-semibold text-gray-900">Carmen Santos</p>
+                    <p class="text-sm text-gray-500">North Miami, FL</p>
+                    <p class="text-sm text-gray-400 mt-1">3 weeks ago</p>
+                </div>
+            </div>
+
+            {# Review 4 - Robert Williams #}
+            <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-shadow relative">
+                <div class="absolute -top-3 -left-3 bg-blue-600 rounded-full p-2">
+                    <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+                </div>
+                <div class="flex gap-1 mb-4">
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 fill-blue-600 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="text-gray-700 mb-4 leading-relaxed">
+                    "Quality furniture at discount prices - no compromise! Free delivery and setup was the cherry on top. Will definitely be back!"
+                </p>
+                <div class="border-t border-gray-200 pt-4">
+                    <p class="font-semibold text-gray-900">Robert Williams</p>
+                    <p class="text-sm text-gray-500">Miami Gardens, FL</p>
+                    <p class="text-sm text-gray-400 mt-1">1 week ago</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="mt-12 flex flex-wrap items-center justify-center gap-8 text-gray-600">
+            <div class="flex items-center gap-2">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    {# Star Icon #}
+                    <svg class="w-6 h-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <div>
+                    <p class="font-bold text-gray-900">500+</p>
+                    <p class="text-sm">5-Star Reviews</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                    <span class="text-2xl">👥</span>
+                </div>
+                <div>
+                    <p class="font-bold text-gray-900">10,000+</p>
+                    <p class="text-sm">Happy Customers</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <span class="text-2xl">⭐</span>
+                </div>
+                <div>
+                    <p class="font-bold text-gray-900">15+</p>
+                    <p class="text-sm">Years in Business</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

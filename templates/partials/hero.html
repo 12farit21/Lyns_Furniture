@@ -1,0 +1,61 @@
+{# Hero Section Template #}
+{# In Django, this would receive context from views.py #}
+{# No dynamic data needed - all text is static #}
+
+<div class="relative h-[600px] lg:h-[700px] overflow-hidden">
+    <!-- Hero Image -->
+    <div class="absolute inset-0">
+        <img
+            src="https://images.unsplash.com/photo-1759722665935-0967b4e0da93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBsaXZpbmclMjByb29tJTIwc29mYXxlbnwxfHx8fDE3NzA2MjE0ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+            alt="Modern furniture showroom"
+            class="w-full h-full object-cover"
+        />
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
+    </div>
+
+    <!-- Logo at top -->
+    <div class="absolute top-8 left-1/2 transform -translate-x-1/2 z-10">
+        {# In Django: <img src="{% static 'images/logo.png' %}" alt="Lyn's Furniture Miami" class="h-24 sm:h-32 w-auto" /> #}
+        <img src="/static/images/logo.png" alt="Lyn's Furniture Miami" class="h-24 sm:h-32 w-auto" />
+    </div>
+
+    <!-- Content -->
+    <div class="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+        <div class="max-w-2xl">
+            <div class="inline-block bg-blue-600 text-white px-4 py-2 rounded-full mb-6">
+                <span class="font-semibold">🔥 Limited Time Offer</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                Save Up to 70% on Sofas, Mattresses & More
+            </h1>
+
+            <p class="text-xl text-gray-200 mb-8 max-w-xl">
+                Discover unbeatable deals on quality furniture at our 5 South Florida locations.
+                Transform your home without breaking the bank.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#categories" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl">
+                    Shop Now
+                    {# Arrow Right Icon #}
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+
+                <a href="#store-location" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center">
+                    Find a Store Near You
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div class="animate-bounce text-white">
+            <div class="w-6 h-10 border-2 border-white rounded-full flex items-start justify-center p-2">
+                <div class="w-1 h-2 bg-white rounded-full"></div>
+            </div>
+        </div>
+    </div>
+</div>
