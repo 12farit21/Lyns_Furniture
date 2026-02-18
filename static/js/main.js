@@ -25,22 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
             addToCart(this.dataset.productId, this);
         });
     });
-
-    // Load cart badge count in navbar
-    loadCartBadge();
 });
 
 // ─── Cart Badge ────────────────────────────────────────────────────────────────
-
-function loadCartBadge() {
-    fetch('/cart/detail/')
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            const count = data.total_items || 0;
-            updateCartBadge(count);
-        })
-        .catch(function() { /* silently ignore */ });
-}
 
 function updateCartBadge(count) {
     const badge = document.getElementById('cart-badge');

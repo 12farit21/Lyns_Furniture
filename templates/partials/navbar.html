@@ -31,7 +31,7 @@
                         <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
                         <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
                     </svg>
-                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center {% if not cart_count %}hidden{% endif %}">{{ cart_count|default:0 }}</span>
                 </a>
 
                 <!-- Mobile Menu Button -->
