@@ -142,8 +142,8 @@
     <!-- Backdrop -->
     <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
     <!-- Modal Box -->
-    <div class="relative z-10 flex items-center justify-center min-h-full p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+    <div class="relative z-10 flex items-center justify-center min-h-full p-4" onclick="closeProductModal()">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <!-- Loading state -->
             <div id="modal-loading" class="flex items-center justify-center py-24">
                 <div class="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
