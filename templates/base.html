@@ -12,6 +12,9 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
 
+    <!-- CSRF token for AJAX requests -->
+    {% csrf_token %}
+
     <!-- Custom Theme Variables (from React theme.css) -->
     <style>
         /* Light Mode Variables */

@@ -2,9 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.utils.decorators import method_decorator
 from .models import Category, Product
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class CategoryListView(ListView):
     """Display list of all active categories"""
     model = Category
@@ -13,6 +16,7 @@ class CategoryListView(ListView):
     queryset = Category.objects.filter(is_active=True)
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class ProductListView(ListView):
     """Display products by category with pagination"""
     model = Product
@@ -109,6 +113,7 @@ def product_detail_json(request, product_slug):
     return JsonResponse(product_data)
 
 
+@ensure_csrf_cookie
 def home_view(request):
     """
     Home page view showing featured products
