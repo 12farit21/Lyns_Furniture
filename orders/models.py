@@ -19,12 +19,12 @@ class Order(models.Model):
 
     # Contact method choices
     WHATSAPP = 'whatsapp'
-    TELEGRAM = 'telegram'
+    PHONE_CALL = 'phone_call'
     EMAIL = 'email'
 
     CONTACT_METHOD_CHOICES = [
         (WHATSAPP, _('WhatsApp')),
-        (TELEGRAM, _('Telegram')),
+        (PHONE_CALL, _('Телефонный звонок')),
         (EMAIL, _('Email')),
     ]
 
