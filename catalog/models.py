@@ -130,15 +130,9 @@ class Product(models.Model):
         """Return all active variants for this product"""
         return self.variants.filter(is_active=True)
 
-    def get_total_quantity(self):
-        """Return total quantity across all variants"""
-        return self.variants.filter(is_active=True).aggregate(
-            total=models.Sum('quantity')
-        )['total'] or 0
-
     def has_stock(self):
-        """Check if product has any stock available"""
-        return self.get_total_quantity() > 0
+        """Check if product has any active variants"""
+        return self.variants.filter(is_active=True).exists()
 
     def get_primary_variant(self):
         """Return the first active variant or None"""
@@ -156,19 +150,7 @@ class ProductVariant(models.Model):
     )
     name = models.CharField(
         max_length=100,
-        blank=True,
-        null=True,
         verbose_name=_('Цвет')
-    )
-    size = models.CharField(
-        max_length=50,
-        blank=True,
-        null=True,
-        verbose_name=_('Размер')
-    )
-    quantity = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_('Количество')
     )
     is_active = models.BooleanField(
         default=True,
@@ -180,48 +162,28 @@ class ProductVariant(models.Model):
     )
 
     class Meta:
-        verbose_name = _('Цвет/Размер товара')
-        verbose_name_plural = _('Цвета/Размеры товара')
-        ordering = ['name', 'size']
+        verbose_name = _('Цвет товара')
+        verbose_name_plural = _('Цвета товара')
+        ordering = ['name']
 
     def __str__(self):
-        variant_display = self.get_display_name() or _('Без варианта')
-        return f"{self.product.name} - {variant_display}"
+        return f"{self.product.name} - {self.name}"
 
     def get_display_name(self):
-        """Return display name showing only filled values"""
-        parts = []
-        if self.name:
-            parts.append(self.name)
-        if self.size:
-            parts.append(self.size)
-        return ' '.join(parts) if parts else ''
+        return self.name or ''
 
     def clean(self):
-        """Validate that at least one of name or size is filled"""
         from django.core.exceptions import ValidationError
 
-        if not self.name and not self.size:
-            raise ValidationError(
-                _('Необходимо заполнить хотя бы одно поле: Цвет или Размер')
-            )
+        if not self.name:
+            raise ValidationError(_('Необходимо заполнить поле Цвет'))
 
-        # Check for duplicate combinations
         qs = ProductVariant.objects.filter(product=self.product)
         if self.pk:
             qs = qs.exclude(pk=self.pk)
 
-        if self.name and self.size:
-            if qs.filter(name=self.name, size=self.size).exists():
-                raise ValidationError(
-                    _('Комбинация цвета и размера уже существует')
-                )
-        elif self.name:
-            if qs.filter(name=self.name, size__isnull=True).exists():
-                raise ValidationError(_('Этот цвет уже существует'))
-        elif self.size:
-            if qs.filter(size=self.size, name__isnull=True).exists():
-                raise ValidationError(_('Этот размер уже существует'))
+        if qs.filter(name=self.name).exists():
+            raise ValidationError(_('Этот цвет уже существует'))
 
 
 class ProductGallery(models.Model):

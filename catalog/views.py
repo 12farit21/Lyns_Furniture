@@ -73,14 +73,11 @@ def product_detail_json(request, product_slug):
             {
                 'id': variant.id,
                 'name': variant.name,
-                'size': variant.size,
                 'display_name': variant.get_display_name(),
-                'quantity': variant.quantity,
                 'is_active': variant.is_active
             }
             for variant in product.get_available_variants()
         ],
-        'total_quantity': product.get_total_quantity(),
         'image': product.get_primary_image_url(),
         'gallery_images': [
             {

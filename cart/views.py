@@ -31,21 +31,6 @@ def cart_add(request, product_id):
             is_active=True
         )
 
-        # Check stock availability
-        # Calculate how much is already in cart for this variant
-        cart_key = f"{product.id}_{variant.id}"
-        current_quantity = cart.cart.get(cart_key, {}).get('quantity', 0)
-        total_quantity = current_quantity + quantity
-
-        print(f"[DEBUG] Variant stock check: variant.quantity={variant.quantity}, current_in_cart={current_quantity}, total_requested={total_quantity}")
-
-        if variant.quantity < total_quantity:
-            print(f"[DEBUG] INSUFFICIENT STOCK!")
-            return JsonResponse({
-                'status': 'error',
-                'message': f'Недостаточно товара. Доступно: {variant.quantity}, в корзине: {current_quantity}'
-            }, status=400)
-
     cart.add(product=product, quantity=quantity, variant=variant, update_quantity=False)
 
     return JsonResponse({

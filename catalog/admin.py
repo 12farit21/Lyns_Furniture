@@ -37,7 +37,7 @@ class ProductVariantInline(TabularInline):
     """Inline admin for product variants (color/size)"""
     model = ProductVariant
     extra = 0
-    fields = ['name', 'size', 'quantity', 'is_active']
+    fields = ['name', 'is_active']
 
 
 class ProductGalleryInline(TabularInline):
@@ -77,7 +77,6 @@ class ProductAdmin(ModelAdmin):
         'price',
         'status',
         'color_count',
-        'total_quantity',
         'is_active',
         'created_at'
     ]
@@ -104,36 +103,27 @@ class ProductAdmin(ModelAdmin):
         ('Цена и статус', {
             'fields': ('price', 'status')
         }),
-        ('Настройки', {
-            'fields': ('is_active', 'created_at')
-        }),
+        # ('Настройки', {
+        #     'fields': ('is_active', 'created_at')
+        # }),
     )
 
     def get_fieldsets(self, request, obj=None):
-        """Hide slug field for Manager group"""
+        """Hide slug field for all users"""
         fieldsets = super().get_fieldsets(request, obj)
+        modified_fieldsets = []
+        for name, data in fieldsets:
+            if name == 'Основная информация':
+                fields = tuple(f for f in data['fields'] if f != 'slug')
+                modified_data = data.copy()
+                modified_data['fields'] = fields
+                modified_fieldsets.append((name, modified_data))
+            else:
+                modified_fieldsets.append((name, data))
+        return modified_fieldsets
 
-        if request.user.groups.filter(name='Manager').exists():
-            # Create a modified copy of fieldsets
-            modified_fieldsets = []
-            for name, data in fieldsets:
-                if name == 'Основная информация':
-                    # Remove 'slug' from fields
-                    fields = tuple(f for f in data['fields'] if f != 'slug')
-                    modified_data = data.copy()
-                    modified_data['fields'] = fields
-                    modified_fieldsets.append((name, modified_data))
-                else:
-                    modified_fieldsets.append((name, data))
-            return modified_fieldsets
-
-        return fieldsets
-
-    def get_prepopulated_fields(self, request, obj=None):
-        """Remove prepopulated_fields for slug if user is in Manager group"""
-        if request.user.groups.filter(name='Manager').exists():
-            return {}
-        return super().get_prepopulated_fields(request, obj)
+    def get_prepopulated_fields(self, _request, _obj=None):
+        return {}
 
     @display(description=_('Варианты'))
     def color_count(self, obj):
@@ -142,14 +132,6 @@ class ProductAdmin(ModelAdmin):
         if count == 0:
             return format_html('<span style="color: var(--color-error);">0</span>')
         return count
-
-    @display(description=_('Общее количество'))
-    def total_quantity(self, obj):
-        """Display total quantity across all colors"""
-        total = obj.get_total_quantity()
-        if total == 0:
-            return format_html('<span style="color: var(--color-error);">0</span>')
-        return total
 
 
 # @admin.register(ProductGallery)

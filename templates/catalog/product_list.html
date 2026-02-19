@@ -207,9 +207,8 @@ function buildModalHTML(p) {
                     <button
                         class="modal-variant-btn px-3 py-1.5 rounded-lg border-2 text-sm font-medium transition-all border-gray-300 hover:border-blue-500"
                         data-variant-id="${v.id}"
-                        data-qty="${v.quantity}"
                         onclick="selectModalVariant(this)"
-                    >${v.display_name || v.name || v.size}</button>
+                    >${v.display_name || v.name}</button>
                 `).join('')}
             </div>
         </div>
