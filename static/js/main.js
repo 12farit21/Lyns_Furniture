@@ -2,6 +2,59 @@
  * Lyn's Furniture Miami - Main JavaScript
  */
 
+// ─── Image Placeholder (global, capture phase — covers all <img> including modal) ──
+(function () {
+    var svg = [
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">',
+          '<defs>',
+            '<linearGradient id="lfbg" x1="0" y1="0" x2="1" y2="1">',
+              '<stop offset="0%" stop-color="#EFF6FF"/>',
+              '<stop offset="100%" stop-color="#E0E7FF"/>',
+            '</linearGradient>',
+          '</defs>',
+          /* background */
+          '<rect width="400" height="400" fill="url(#lfbg)"/>',
+          /* decorative circles */
+          '<circle cx="40" cy="40" r="65" fill="#DBEAFE" opacity="0.5"/>',
+          '<circle cx="360" cy="360" r="80" fill="#E0E7FF" opacity="0.5"/>',
+          /* back cushions */
+          '<rect x="92" y="148" width="93" height="70" rx="14" fill="#BFDBFE"/>',
+          '<rect x="195" y="148" width="93" height="70" rx="14" fill="#C7D2FE"/>',
+          /* seat */
+          '<rect x="86" y="208" width="228" height="58" rx="10" fill="#93C5FD"/>',
+          /* armrests */
+          '<rect x="62" y="163" width="36" height="83" rx="14" fill="#A5B4FC"/>',
+          '<rect x="302" y="163" width="36" height="83" rx="14" fill="#A5B4FC"/>',
+          /* base strip */
+          '<rect x="86" y="261" width="228" height="13" rx="4" fill="#7DD3FC"/>',
+          /* legs */
+          '<rect x="106" y="272" width="12" height="26" rx="4" fill="#6366F1"/>',
+          '<rect x="158" y="272" width="12" height="26" rx="4" fill="#6366F1"/>',
+          '<rect x="230" y="272" width="12" height="26" rx="4" fill="#6366F1"/>',
+          '<rect x="282" y="272" width="12" height="26" rx="4" fill="#6366F1"/>',
+          /* label */
+          '<text x="200" y="338" text-anchor="middle" font-family="system-ui,sans-serif"',
+          ' font-size="13" fill="#94A3B8" letter-spacing="2.5" font-weight="500">NO IMAGE</text>',
+        '</svg>'
+    ].join('');
+
+    var PLACEHOLDER = 'data:image/svg+xml,' + encodeURIComponent(svg);
+
+    function applyPlaceholder(img) {
+        if (img.src === PLACEHOLDER || img.dataset.placeholder === '1') return;
+        img.dataset.placeholder = '1';
+        img.onerror = null;
+        img.src = PLACEHOLDER;
+    }
+
+    /* capture phase — catches errors from ALL img elements, including dynamic ones */
+    document.addEventListener('error', function (e) {
+        if (e.target && e.target.tagName === 'IMG') {
+            applyPlaceholder(e.target);
+        }
+    }, true);
+}());
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // Smooth scroll for anchor links
