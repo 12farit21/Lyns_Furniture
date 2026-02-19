@@ -12,9 +12,9 @@ class Order(models.Model):
     COMPLETED = 'completed'
 
     STATUS_CHOICES = [
-        (NEW, _('Новый')),
-        (PROCESSING, _('В обработке')),
-        (COMPLETED, _('Завершен')),
+        (NEW, _('New')),
+        (PROCESSING, _('Processing')),
+        (COMPLETED, _('Completed')),
     ]
 
     # Contact method choices
@@ -24,85 +24,85 @@ class Order(models.Model):
 
     CONTACT_METHOD_CHOICES = [
         (WHATSAPP, _('WhatsApp')),
-        (PHONE_CALL, _('Телефонный звонок')),
+        (PHONE_CALL, _('Phone call')),
         (EMAIL, _('Email')),
     ]
 
     # Customer information
     full_name = models.CharField(
         max_length=200,
-        verbose_name=_('ФИО')
+        verbose_name=_('Full name')
     )
     email = models.EmailField(
         verbose_name=_('Email')
     )
     phone = models.CharField(
         max_length=20,
-        verbose_name=_('Телефон')
+        verbose_name=_('Phone')
     )
     contact_method = models.CharField(
         max_length=20,
         choices=CONTACT_METHOD_CHOICES,
         default=WHATSAPP,
-        verbose_name=_('Способ связи')
+        verbose_name=_('Contact method')
     )
 
     # Delivery address
     region = models.CharField(
         max_length=100,
-        verbose_name=_('Область')
+        verbose_name=_('Region')
     )
     city = models.CharField(
         max_length=100,
-        verbose_name=_('Город')
+        verbose_name=_('City')
     )
     street = models.CharField(
         max_length=200,
-        verbose_name=_('Улица')
+        verbose_name=_('Street')
     )
     house = models.CharField(
         max_length=20,
-        verbose_name=_('Дом')
+        verbose_name=_('House')
     )
     building = models.CharField(
         max_length=20,
         blank=True,
-        verbose_name=_('Корпус')
+        verbose_name=_('Building')
     )
     apartment = models.CharField(
         max_length=20,
         blank=True,
-        verbose_name=_('Квартира')
+        verbose_name=_('Apartment')
     )
 
     # Order details
     total_price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_('Общая сумма (тенге)')
+        verbose_name=_('Total amount')
     )
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default=NEW,
-        verbose_name=_('Статус')
+        verbose_name=_('Status')
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_('Дата создания')
+        verbose_name=_('Created at')
     )
     updated_at = models.DateTimeField(
         auto_now=True,
-        verbose_name=_('Дата обновления')
+        verbose_name=_('Updated at')
     )
 
     class Meta:
-        verbose_name = _('Заказ')
-        verbose_name_plural = _('Заказы')
+        verbose_name = _('Order')
+        verbose_name_plural = _('Orders')
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'Заказ №{self.pk} от {self.created_at.strftime("%d.%m.%Y")}'
+        return f'Order #{self.pk} from {self.created_at.strftime("%d.%m.%Y")}'
 
     def get_full_address(self):
         """Return full delivery address"""
@@ -110,12 +110,12 @@ class Order(models.Model):
             self.region,
             self.city,
             self.street,
-            f'д. {self.house}'
+            f'house {self.house}'
         ]
         if self.building:
-            address_parts.append(f'корп. {self.building}')
+            address_parts.append(f'bldg. {self.building}')
         if self.apartment:
-            address_parts.append(f'кв. {self.apartment}')
+            address_parts.append(f'apt. {self.apartment}')
         return ', '.join(address_parts)
 
 
@@ -126,31 +126,31 @@ class OrderItem(models.Model):
         Order,
         on_delete=models.CASCADE,
         related_name='items',
-        verbose_name=_('Заказ')
+        verbose_name=_('Order')
     )
     product = models.ForeignKey(
         Product,
         on_delete=models.PROTECT,
-        verbose_name=_('Товар')
+        verbose_name=_('Product')
     )
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_('Цена (тенге)')
+        verbose_name=_('Price')
     )
     quantity = models.PositiveIntegerField(
         default=1,
-        verbose_name=_('Количество')
+        verbose_name=_('Quantity')
     )
     variant_display_name = models.CharField(
         max_length=200,
         blank=True,
-        verbose_name=_('Вариант (Цвет/Размер)')
+        verbose_name=_('Variant (Color/Size)')
     )
 
     class Meta:
-        verbose_name = _('Товар в заказе')
-        verbose_name_plural = _('Товары в заказе')
+        verbose_name = _('Order item')
+        verbose_name_plural = _('Order items')
 
     def __str__(self):
         if self.variant_display_name:

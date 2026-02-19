@@ -49,13 +49,13 @@ class OrderAdmin(ModelAdmin):
     list_fullwidth = True
 
     fieldsets = (
-        ('Информация о клиенте', {
+        ('Customer information', {
             'fields': ('full_name', 'email', 'phone', 'contact_method')
         }),
-        ('Адрес доставки', {
+        ('Delivery address', {
             'fields': ('region', 'city', 'street', 'house', 'building', 'apartment')
         }),
-        ('Информация о заказе', {
+        ('Order information', {
             'fields': ('total_price', 'status', 'created_at', 'updated_at')
         }),
     )
@@ -71,7 +71,7 @@ class OrderAdmin(ModelAdmin):
 #     compressed_fields = True
 #     list_filter_submit = True
 
-#     @display(description='Общая стоимость')
+#     @display(description='Total cost')
 #     def get_total_price(self, obj):
 #         """Display total price for this order item"""
 #         return obj.get_total_price()

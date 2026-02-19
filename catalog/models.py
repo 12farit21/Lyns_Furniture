@@ -7,7 +7,7 @@ class Category(models.Model):
     """Product category model"""
     name = models.CharField(
         max_length=200,
-        verbose_name=_('Название')
+        verbose_name=_('Name')
     )
     slug = models.SlugField(
         max_length=200,
@@ -18,20 +18,20 @@ class Category(models.Model):
         upload_to='categories/%Y/%m/%d/',
         blank=True,
         null=True,
-        verbose_name=_('Изображение')
+        verbose_name=_('Image')
     )
     is_active = models.BooleanField(
         default=True,
-        verbose_name=_('Активна')
+        verbose_name=_('Active')
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_('Дата создания')
+        verbose_name=_('Created at')
     )
 
     class Meta:
-        verbose_name = _('Категория')
-        verbose_name_plural = _('Категории')
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
         ordering = ['name']
 
     def __str__(self):
@@ -67,11 +67,11 @@ class Product(models.Model):
         Category,
         on_delete=models.CASCADE,
         related_name='products',
-        verbose_name=_('Категория')
+        verbose_name=_('Category')
     )
     name = models.CharField(
         max_length=200,
-        verbose_name=_('Название')
+        verbose_name=_('Name')
     )
     slug = models.SlugField(
         max_length=200,
@@ -79,42 +79,42 @@ class Product(models.Model):
         verbose_name=_('URL')
     )
     description = models.TextField(
-        verbose_name=_('Описание')
+        verbose_name=_('Description')
     )
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_('Цена продажи')
+        verbose_name=_('Sale price')
     )
     price_before_discount = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         blank=True,
         null=True,
-        verbose_name=_('Цена до скидки')
+        verbose_name=_('Original price')
     )
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default=IN_STOCK,
-        verbose_name=_('Статус')
+        verbose_name=_('Status')
     )
     is_active = models.BooleanField(
         default=True,
-        verbose_name=_('Активен')
+        verbose_name=_('Active')
     )
     is_featured = models.BooleanField(
         default=False,
-        verbose_name=_('Рекомендуемый')
+        verbose_name=_('Featured')
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_('Дата создания')
+        verbose_name=_('Created at')
     )
 
     class Meta:
-        verbose_name = _('Товар')
-        verbose_name_plural = _('Товары')
+        verbose_name = _('Product')
+        verbose_name_plural = _('Products')
         ordering = ['-created_at']
 
     def __str__(self):
@@ -172,24 +172,24 @@ class ProductVariant(models.Model):
         Product,
         on_delete=models.CASCADE,
         related_name='variants',
-        verbose_name=_('Товар')
+        verbose_name=_('Product')
     )
     name = models.CharField(
         max_length=100,
-        verbose_name=_('Цвет')
+        verbose_name=_('Color')
     )
     is_active = models.BooleanField(
         default=True,
-        verbose_name=_('Активен')
+        verbose_name=_('Active')
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_('Дата создания')
+        verbose_name=_('Created at')
     )
 
     class Meta:
-        verbose_name = _('Цвет товара')
-        verbose_name_plural = _('Цвета товара')
+        verbose_name = _('Product color')
+        verbose_name_plural = _('Product colors')
         ordering = ['name']
 
     def __str__(self):
@@ -202,14 +202,14 @@ class ProductVariant(models.Model):
         from django.core.exceptions import ValidationError
 
         if not self.name:
-            raise ValidationError(_('Необходимо заполнить поле Цвет'))
+            raise ValidationError(_('The Color field is required'))
 
         qs = ProductVariant.objects.filter(product=self.product)
         if self.pk:
             qs = qs.exclude(pk=self.pk)
 
         if qs.filter(name=self.name).exists():
-            raise ValidationError(_('Этот цвет уже существует'))
+            raise ValidationError(_('This color already exists'))
 
 
 class ProductGallery(models.Model):
@@ -219,7 +219,7 @@ class ProductGallery(models.Model):
         Product,
         on_delete=models.CASCADE,
         related_name='gallery_images',
-        verbose_name=_('Товар')
+        verbose_name=_('Product')
     )
     variant = models.ForeignKey(
         'ProductVariant',
@@ -227,33 +227,33 @@ class ProductGallery(models.Model):
         null=True,
         blank=True,
         related_name='images',
-        verbose_name=_('Цвет/Размер')
+        verbose_name=_('Color/Size')
     )
     image = models.ImageField(
         upload_to='products/%Y/%m/%d/',
-        verbose_name=_('Изображение')
+        verbose_name=_('Image')
     )
     alt_text = models.CharField(
         max_length=255,
         blank=True,
-        verbose_name=_('Альтернативный текст')
+        verbose_name=_('Alt text')
     )
     order = models.PositiveIntegerField(
         default=0,
-        verbose_name=_('Порядок')
+        verbose_name=_('Order')
     )
     is_primary = models.BooleanField(
         default=False,
-        verbose_name=_('Основное изображение')
+        verbose_name=_('Primary image')
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_('Дата загрузки')
+        verbose_name=_('Uploaded at')
     )
 
     class Meta:
-        verbose_name = _('Изображение товара')
-        verbose_name_plural = _('Изображения товара')
+        verbose_name = _('Product image')
+        verbose_name_plural = _('Product images')
         ordering = ['order', 'created_at']
 
     def __str__(self):

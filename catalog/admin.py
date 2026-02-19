@@ -56,7 +56,7 @@ class ProductGalleryInline(TabularInline):
                 kwargs["queryset"] = ProductVariant.objects.filter(product_id=product_id)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
-    @display(description=_('Превью'))
+    @display(description=_('Preview'))
     def image_preview(self, obj):
         """Display thumbnail preview in admin"""
         if obj.image:
@@ -99,13 +99,13 @@ class ProductAdmin(ModelAdmin):
     list_fullwidth = True
 
     fieldsets = (
-        ('Основная информация', {
+        ('General information', {
             'fields': ('category', 'name', 'slug', 'description')
         }),
-        ('Цена и статус', {
+        ('Price and status', {
             'fields': ('price', 'price_before_discount', 'status')
         }),
-        # ('Настройки', {
+        # ('Settings', {
         #     'fields': ('is_active', 'created_at')
         # }),
     )
@@ -115,7 +115,7 @@ class ProductAdmin(ModelAdmin):
         fieldsets = super().get_fieldsets(request, obj)
         modified_fieldsets = []
         for name, data in fieldsets:
-            if name == 'Основная информация':
+            if name == 'General information':
                 fields = tuple(f for f in data['fields'] if f != 'slug')
                 modified_data = data.copy()
                 modified_data['fields'] = fields
@@ -127,7 +127,7 @@ class ProductAdmin(ModelAdmin):
     def get_prepopulated_fields(self, _request, _obj=None):
         return {}
 
-    @display(description=_('Варианты'))
+    @display(description=_('Variants'))
     def color_count(self, obj):
         """Display count of active variants"""
         count = obj.variants.filter(is_active=True).count()
@@ -148,7 +148,7 @@ class ProductAdmin(ModelAdmin):
 #     compressed_fields = True
 #     list_filter_submit = True
 
-#     @display(description=_('Превью'))
+#     @display(description=_('Preview'))
 #     def image_preview(self, obj):
 #         """Display thumbnail preview in admin"""
 #         if obj.image:

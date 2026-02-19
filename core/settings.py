@@ -125,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Almaty'
 
@@ -206,67 +206,67 @@ UNFOLD = {
         "show_all_applications": False,
         "navigation": [
             {
-                "title": "Навигация",
+                "title": "Navigation",
                 "separator": True,
                 "items": [
                     {
-                        "title": "Панель управления",
+                        "title": "Dashboard",
                         "icon": "dashboard",
                         "link": lambda request: "/admin/",
                     },
                 ],
             },
             {
-                "title": "Каталог",
+                "title": "Catalog",
                 "separator": True,
                 "collapsible": True,
                 "items": [
                     {
-                        "title": "Категории",
+                        "title": "Categories",
                         "icon": "category",
                         "link": lambda request: "/admin/catalog/category/",
                     },
                     {
-                        "title": "Товары",
+                        "title": "Products",
                         "icon": "inventory_2",
                         "link": lambda request: "/admin/catalog/product/",
                     },
                     # {
-                    #     "title": "Галерея",
+                    #     "title": "Gallery",
                     #     "icon": "photo_library",
                     #     "link": lambda request: "/admin/catalog/productgallery/",
                     # },
                 ],
             },
             {
-                "title": "Заказы",
+                "title": "Orders",
                 "separator": True,
                 "collapsible": True,
                 "items": [
                     {
-                        "title": "Заказы",
+                        "title": "Orders",
                         "icon": "shopping_cart",
                         "link": lambda request: "/admin/orders/order/",
                     },
                     # {
-                    #     "title": "Элементы заказов",
+                    #     "title": "Order Items",
                     #     "icon": "receipt_long",
                     #     "link": lambda request: "/admin/orders/orderitem/",
                     # },
                 ],
             },
             # {
-            #     "title": "Система",
+            #     "title": "System",
             #     "separator": True,
             #     "collapsible": True,
             #     "items": [
             #         {
-            #             "title": "Пользователи",
+            #             "title": "Users",
             #             "icon": "people",
             #             "link": lambda request: "/admin/auth/user/",
             #         },
             #         {
-            #             "title": "Группы",
+            #             "title": "Groups",
             #             "icon": "group",
             #             "link": lambda request: "/admin/auth/group/",
             #         },
@@ -282,11 +282,11 @@ UNFOLD = {
             ],
             "items": [
                 {
-                    "title": "Категории",
+                    "title": "Categories",
                     "link": lambda request: "/admin/catalog/category/",
                 },
                 {
-                    "title": "Товары",
+                    "title": "Products",
                     "link": lambda request: "/admin/catalog/product/",
                 },
             ],
