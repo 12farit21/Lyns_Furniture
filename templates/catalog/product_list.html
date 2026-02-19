@@ -332,6 +332,18 @@ function selectModalVariant(btn) {
     }
 }
 
+// Auto-open modal if ?open=<slug> param is present in URL
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const slugToOpen = params.get('open');
+    if (slugToOpen) {
+        openProductModal(slugToOpen);
+        // Clean up URL without reloading
+        const cleanUrl = window.location.pathname + (params.toString().replace(/open=[^&]*&?/, '').replace(/^&/, '') ? '?' + params.toString().replace(/open=[^&]*&?/, '').replace(/^&/, '') : '');
+        history.replaceState(null, '', cleanUrl);
+    }
+});
+
 function initModalInteractions(p) {
     const addBtn = document.getElementById('modal-add-cart-btn');
     if (!addBtn) return;

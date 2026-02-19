@@ -18,7 +18,9 @@
         {% if featured_products %}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for product in featured_products %}
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+            {% url 'catalog:product_list' product.category.slug as category_url %}
+            <a href="{{ category_url }}?open={{ product.slug }}"
+               class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group block">
                 <div class="relative aspect-square overflow-hidden">
                     <img
                         src="{{ product.get_primary_image_url }}"
@@ -46,15 +48,12 @@
                         <span class="text-2xl text-gray-400 line-through">${{ product.price_before_discount|price_format }}</span>
                         {% endif %}
                     </div>
-                    <button
-                        class="add-to-cart-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all"
-                        data-product-id="{{ product.id }}"
-                    >
+                    <div class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all">
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
                         Add to Cart
-                    </button>
+                    </div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
         {% else %}
