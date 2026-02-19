@@ -102,6 +102,7 @@ class Cart:
 
             item_data['price'] = Decimal(item_data['price'])
             item_data['total_price'] = item_data['price'] * item_data['quantity']
+            item_data['image_url'] = self._get_variant_image_url(product, item_data['variant'])
             yield item_data
 
     def __len__(self):
