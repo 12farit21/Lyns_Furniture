@@ -1,4 +1,5 @@
 {# Featured Deals Section Template - dynamic data from DB #}
+{% load price_filters %}
 
 <section class="py-16 lg:py-24 bg-gradient-to-b from-gray-50 to-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,16 +26,25 @@
                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <!-- Status Badge -->
-                    <div class="absolute top-3 left-3 {% if product.status == 'in_stock' %}bg-indigo-600{% else %}bg-amber-500{% endif %} text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <div class="absolute top-3 left-3 bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
                         {{ product.get_status_display }}
                     </div>
+                    <!-- Discount Badge -->
+                    {% if product.get_discount_percent %}
+                    <div class="absolute top-3 right-3 bg-indigo-600 text-white px-2 py-1 rounded-full text-sm font-bold">
+                        {{ product.get_discount_percent }}% OFF
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="p-5">
                     <h3 class="text-lg font-semibold text-gray-900 mb-3">
                         {{ product.name }}
                     </h3>
                     <div class="flex items-baseline gap-2 mb-4">
-                        <span class="text-2xl font-bold text-blue-600">${{ product.price }}</span>
+                        <span class="text-2xl font-bold text-blue-600">${{ product.price|price_format }}</span>
+                        {% if product.price_before_discount %}
+                        <span class="text-2xl text-gray-400 line-through">${{ product.price_before_discount|price_format }}</span>
+                        {% endif %}
                     </div>
                     <button
                         class="add-to-cart-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all"

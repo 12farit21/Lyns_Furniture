@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load price_filters %}
 
 {% block title %}{{ category.name }} - Lyn's Furniture Miami{% endblock %}
 
@@ -68,9 +69,15 @@
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         <!-- Status Badge -->
-                        <div class="absolute top-3 left-3 {% if product.status == 'in_stock' %}bg-indigo-600{% else %}bg-amber-500{% endif %} text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        <div class="absolute top-3 left-3 bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
                             {{ product.get_status_display }}
                         </div>
+                        <!-- Discount Badge -->
+                        {% if product.get_discount_percent %}
+                        <div class="absolute top-3 right-3 bg-indigo-600 text-white px-2 py-1 rounded-full text-sm font-bold">
+                            {{ product.get_discount_percent }}% OFF
+                        </div>
+                        {% endif %}
                         <!-- Quick View overlay -->
                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <span class="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold text-sm">Quick View</span>
@@ -82,7 +89,12 @@
                             onclick="openProductModal('{{ product.slug }}')">
                             {{ product.name }}
                         </h3>
-                        <p class="text-xl font-bold text-blue-600 mb-3">${{ product.price }}</p>
+                        <div class="flex items-baseline gap-2 mb-3">
+                            <span class="text-xl font-bold text-blue-600">${{ product.price|price_format }}</span>
+                            {% if product.price_before_discount %}
+                            <span class="text-xl text-gray-400 line-through">${{ product.price_before_discount|price_format }}</span>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -216,7 +228,7 @@ function buildModalHTML(p) {
 
     const statusBadge = p.status_code === 'in_stock'
         ? '<span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-semibold">In Stock</span>'
-        : '<span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-semibold">On Order</span>';
+        : '<span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-semibold">On Order</span>';
 
     return `
         <div class="p-6 lg:p-8">

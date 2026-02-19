@@ -49,10 +49,18 @@ class Product(models.Model):
     # Status choices
     IN_STOCK = 'in_stock'
     ON_ORDER = 'on_order'
+    BEST_SELLER = 'best_seller'
+    NEW_ARRIVAL = 'new_arrival'
+    HOT_DEAL = 'hot_deal'
+    LIMITED_STOCK = 'limited_stock'
 
     STATUS_CHOICES = [
-        (IN_STOCK, _('В наличии')),
-        (ON_ORDER, _('Под заказ')),
+        (IN_STOCK, _('In Stock')),
+        (ON_ORDER, _('On Order')),
+        (BEST_SELLER, _('Best Seller')),
+        (NEW_ARRIVAL, _('New Arrival')),
+        (HOT_DEAL, _('Hot Deal')),
+        (LIMITED_STOCK, _('Limited Stock')),
     ]
 
     category = models.ForeignKey(
@@ -76,7 +84,14 @@ class Product(models.Model):
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_('Цена (тенге)')
+        verbose_name=_('Цена продажи')
+    )
+    price_before_discount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_('Цена до скидки')
     )
     status = models.CharField(
         max_length=20,
@@ -137,6 +152,13 @@ class Product(models.Model):
     def get_primary_variant(self):
         """Return the first active variant or None"""
         return self.variants.filter(is_active=True).first()
+
+    def get_discount_percent(self):
+        """Return discount percentage rounded to integer, or None"""
+        if self.price_before_discount and self.price_before_discount > self.price:
+            discount = (self.price_before_discount - self.price) / self.price_before_discount * 100
+            return round(discount)
+        return None
 
 
 class ProductVariant(models.Model):

@@ -75,6 +75,7 @@ class ProductAdmin(ModelAdmin):
         'name',
         'category',
         'price',
+        'price_before_discount',
         'status',
         'color_count',
         'is_active',
@@ -88,7 +89,7 @@ class ProductAdmin(ModelAdmin):
     ]
     search_fields = ['name', 'description']
     prepopulated_fields = {'slug': ('name',)}
-    list_editable = ['price', 'status', 'is_active']
+    list_editable = ['price', 'price_before_discount', 'status', 'is_active']
     # date_hierarchy = 'created_at'
     readonly_fields = ['created_at']
     inlines = [ProductVariantInline, ProductGalleryInline]
@@ -101,7 +102,7 @@ class ProductAdmin(ModelAdmin):
             'fields': ('category', 'name', 'slug', 'description')
         }),
         ('Цена и статус', {
-            'fields': ('price', 'status')
+            'fields': ('price', 'price_before_discount', 'status')
         }),
         # ('Настройки', {
         #     'fields': ('is_active', 'created_at')
