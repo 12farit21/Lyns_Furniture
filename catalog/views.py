@@ -114,7 +114,7 @@ def home_view(request):
     Home page view showing featured products
     """
     categories = Category.objects.filter(is_active=True)
-    featured_products = Product.objects.filter(is_active=True)[:8]
+    featured_products = Product.objects.filter(is_active=True, is_featured=True)[:8]
 
     context = {
         'categories': categories,

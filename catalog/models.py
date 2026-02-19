@@ -103,6 +103,10 @@ class Product(models.Model):
         default=True,
         verbose_name=_('Активен')
     )
+    is_featured = models.BooleanField(
+        default=False,
+        verbose_name=_('Рекомендуемый')
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_('Дата создания')
