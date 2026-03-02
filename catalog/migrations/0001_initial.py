@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(max_length=200, unique=True, verbose_name='URL')),
                 ('description', models.TextField(verbose_name='Description')),
                 ('price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Sale price')),
-                ('price_before_discount', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True, verbose_name='Original price')),
+                ('price_before_discount', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True, verbose_name='Price before discount')),
                 ('status', models.CharField(choices=[('in_stock', 'In Stock'), ('on_order', 'On Order'), ('best_seller', 'Best Seller'), ('new_arrival', 'New Arrival'), ('hot_deal', 'Hot Deal'), ('limited_stock', 'Limited Stock')], default='in_stock', max_length=20, verbose_name='Status')),
                 ('is_active', models.BooleanField(default=True, verbose_name='Active')),
                 ('is_featured', models.BooleanField(default=False, verbose_name='Featured')),
@@ -74,7 +74,7 @@ class Migration(migrations.Migration):
                 ('is_primary', models.BooleanField(default=False, verbose_name='Primary image')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Uploaded at')),
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='gallery_images', to='catalog.product', verbose_name='Product')),
-                ('variant', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='images', to='catalog.productvariant', verbose_name='Color/Size')),
+                ('variant', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='images', to='catalog.productvariant', verbose_name='Color')),
             ],
             options={
                 'verbose_name': 'Product image',

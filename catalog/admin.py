@@ -34,7 +34,7 @@ class CategoryAdmin(ModelAdmin):
 
 
 class ProductVariantInline(TabularInline):
-    """Inline admin for product variants (color/size)"""
+    """Inline admin for product variants (Color)"""
     model = ProductVariant
     extra = 0
     fields = ['name', 'is_active']

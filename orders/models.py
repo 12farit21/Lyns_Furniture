@@ -145,7 +145,7 @@ class OrderItem(models.Model):
     variant_display_name = models.CharField(
         max_length=200,
         blank=True,
-        verbose_name=_('Variant (Color/Size)')
+        verbose_name=_('Color')
     )
 
     class Meta:

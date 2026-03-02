@@ -91,7 +91,7 @@ class Product(models.Model):
         decimal_places=2,
         blank=True,
         null=True,
-        verbose_name=_('Original price')
+        verbose_name=_('Price before discount')
     )
     status = models.CharField(
         max_length=20,
@@ -227,7 +227,7 @@ class ProductGallery(models.Model):
         null=True,
         blank=True,
         related_name='images',
-        verbose_name=_('Color/Size')
+        verbose_name=_('Color')
     )
     image = models.ImageField(
         upload_to='products/%Y/%m/%d/',

@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Price')),
                 ('quantity', models.PositiveIntegerField(default=1, verbose_name='Quantity')),
-                ('variant_display_name', models.CharField(blank=True, max_length=200, verbose_name='Variant (Color/Size)')),
+                ('variant_display_name', models.CharField(blank=True, max_length=200, verbose_name='Color')),
                 ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='orders.order', verbose_name='Order')),
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='catalog.product', verbose_name='Product')),
             ],
