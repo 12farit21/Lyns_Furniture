@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}Terms of Service — Lyn's Furniture Miami{% endblock %}
+
+{% block content %}
+<main class="min-h-screen bg-white">
+    <!-- Page Header -->
+    <div class="bg-gray-900 text-white py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold">Terms of Service</h1>
+            <p class="mt-2 text-gray-400 text-sm">Last updated: March 1, 2026</p>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="prose max-w-none space-y-8 text-gray-700 leading-relaxed">
+
+            <section>
+                <p>
+                    Welcome to Lyn's Furniture Miami. By accessing or using our website
+                    (<strong>lynsfurniture.net</strong>) or purchasing products from us, you agree to be
+                    bound by these Terms of Service. Please read them carefully before using our site.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">1. Use of the Website</h2>
+                <p>
+                    You may use this website for lawful personal and non-commercial purposes only.
+                    You agree not to:
+                </p>
+                <ul class="list-disc pl-6 mt-2 space-y-1">
+                    <li>Use the site in any way that violates applicable federal, state, or local laws</li>
+                    <li>Transmit any unsolicited or unauthorized advertising or promotional material</li>
+                    <li>Attempt to gain unauthorized access to any part of the site or its related systems</li>
+                    <li>Reproduce, duplicate, or resell any part of the website without our express written permission</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">2. Product Information and Pricing</h2>
+                <p>
+                    We make every effort to display accurate product descriptions, images, and pricing.
+                    However, we do not warrant that product descriptions or other content is accurate,
+                    complete, reliable, or error-free.
+                </p>
+                <p class="mt-3">
+                    Prices are subject to change without notice. In the event of a pricing error, we
+                    reserve the right to cancel any orders placed at the incorrect price and notify you
+                    accordingly.
+                </p>
+                <p class="mt-3">
+                    Product colors displayed on screen may vary slightly from the actual product due to
+                    differences in monitor settings and photography.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">3. Orders and Payment</h2>
+                <p>
+                    By submitting an order through our website, you are making an offer to purchase the
+                    selected products. We reserve the right to accept or decline any order at our discretion.
+                </p>
+                <p class="mt-3">
+                    Order confirmation does not constitute acceptance of your order. Acceptance occurs
+                    when we process your order and confirm availability.
+                </p>
+                <p class="mt-3">
+                    Payment is due at the time of order or as otherwise agreed. All prices are in US Dollars.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">4. Delivery</h2>
+                <p>
+                    Delivery timelines provided are estimates only and are not guaranteed. We are not
+                    responsible for delays caused by circumstances beyond our reasonable control,
+                    including weather events, supply chain disruptions, or carrier delays.
+                </p>
+                <p class="mt-3">
+                    Risk of loss or damage to products passes to you upon delivery. Please inspect all
+                    items upon delivery and report any damage immediately.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">5. Returns and Exchanges</h2>
+                <p>
+                    Return and exchange policies are available in-store and may vary by product category.
+                    Please contact us directly for details regarding returns, exchanges, or warranty claims.
+                </p>
+                <p class="mt-3">
+                    Items must be in their original condition and packaging for returns to be accepted,
+                    unless the item is defective or damaged upon delivery.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">6. Intellectual Property</h2>
+                <p>
+                    All content on this website — including text, images, logos, graphics, and software —
+                    is the property of Lyn's Furniture Miami or its content suppliers and is protected by
+                    applicable intellectual property laws.
+                </p>
+                <p class="mt-3">
+                    You may not reproduce, distribute, or create derivative works from any content on
+                    this site without our prior written consent.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">7. Disclaimer of Warranties</h2>
+                <p>
+                    This website and its content are provided on an "as is" and "as available" basis
+                    without warranties of any kind, either express or implied. We do not warrant that
+                    the website will be uninterrupted, error-free, or free of viruses or other harmful
+                    components.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">8. Limitation of Liability</h2>
+                <p>
+                    To the maximum extent permitted by applicable law, Lyn's Furniture Miami shall not
+                    be liable for any indirect, incidental, special, consequential, or punitive damages
+                    arising from your use of this website or our products, even if we have been advised
+                    of the possibility of such damages.
+                </p>
+                <p class="mt-3">
+                    Our total liability to you for any claim arising from or related to these Terms or
+                    your use of our site shall not exceed the amount paid by you for the order giving
+                    rise to the claim.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">9. Privacy</h2>
+                <p>
+                    Your use of this website is also governed by our
+                    <a href="{% url 'catalog:privacy' %}" class="text-blue-600 hover:underline">Privacy Policy</a>,
+                    which is incorporated into these Terms by reference.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">10. Governing Law</h2>
+                <p>
+                    These Terms of Service shall be governed by and construed in accordance with the
+                    laws of the State of Florida, without regard to its conflict of law provisions.
+                    Any disputes arising under these Terms shall be subject to the exclusive jurisdiction
+                    of the courts located in Miami-Dade County, Florida.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">11. Changes to These Terms</h2>
+                <p>
+                    We reserve the right to modify these Terms at any time. Changes will be effective
+                    immediately upon posting to the website. Your continued use of the website after
+                    changes are posted constitutes your acceptance of the revised Terms.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-3">12. Contact Us</h2>
+                <p>
+                    If you have questions about these Terms of Service, please contact us:
+                </p>
+                <div class="mt-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <p class="font-medium text-gray-900">Lyn's Furniture Miami</p>
+                    <p class="mt-1">Email: <a href="mailto:info@lynsfurniture.net" class="text-blue-600 hover:underline">info@lynsfurniture.net</a></p>
+                    <p>Phone: <a href="tel:3056361505" class="text-blue-600 hover:underline">(305) 636-1505</a></p>
+                    <p class="mt-1 text-sm text-gray-500">Miami, FL — Serving all of South Florida</p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</main>
+
+{% include 'partials/footer.html' %}
+{% endblock %}

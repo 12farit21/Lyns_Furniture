@@ -148,5 +148,31 @@
     <!-- Custom JavaScript -->
     <script src="{% static 'js/main.js' %}?v=2"></script>
     {% block extra_js %}{% endblock %}
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 border-t border-gray-700 shadow-lg" style="display:none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-gray-300 text-center sm:text-left">
+                    We use cookies to enhance your experience. By continuing to use this site you agree to our use of cookies.
+                    <a href="{% url 'catalog:privacy' %}" class="text-blue-400 hover:text-blue-300 underline ml-1">Learn more</a>
+                </p>
+                <button id="cookie-accept" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-6 py-2 rounded-lg transition-colors">
+                    Accept
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            if (!localStorage.getItem('cookie_consent')) {
+                document.getElementById('cookie-banner').style.display = 'block';
+            }
+            document.getElementById('cookie-accept').addEventListener('click', function () {
+                localStorage.setItem('cookie_consent', '1');
+                document.getElementById('cookie-banner').style.display = 'none';
+            });
+        })();
+    </script>
 </body>
 </html>

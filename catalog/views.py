@@ -113,6 +113,14 @@ def product_detail_json(request, product_slug):
     return JsonResponse(product_data)
 
 
+def privacy_view(request):
+    return render(request, 'catalog/privacy.html')
+
+
+def terms_view(request):
+    return render(request, 'catalog/terms.html')
+
+
 @ensure_csrf_cookie
 def home_view(request):
     """
