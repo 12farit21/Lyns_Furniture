@@ -9,8 +9,15 @@
     <!-- SEO Meta Tags -->
     <meta name="description" content="South Florida's premier furniture destination. Save up to 70% on sofas, mattresses, bedroom sets, and more. 4 convenient locations.">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/x-icon" href="{% url 'favicon' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+
+    <!-- PWA / Web App Manifest -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="theme-color" content="#030213">
 
     <!-- CSRF token for AJAX requests -->
     {% csrf_token %}
