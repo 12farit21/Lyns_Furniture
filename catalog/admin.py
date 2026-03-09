@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin, TabularInline
 from unfold.decorators import display
-from .models import Category, Product, ProductGallery, ProductVariant
+from .models import Category, Product, ProductGallery, ProductVariant, ContactMessage
 
 
 @admin.register(Category)
@@ -134,6 +134,20 @@ class ProductAdmin(ModelAdmin):
         if count == 0:
             return format_html('<span style="color: var(--color-error);">0</span>')
         return count
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(ModelAdmin):
+    list_display = ['first_name', 'last_name', 'email', 'phone', 'created_at', 'is_read']
+    list_filter = ['is_read', 'created_at']
+    search_fields = ['first_name', 'last_name', 'email', 'phone', 'message']
+    list_editable = ['is_read']
+    readonly_fields = ['first_name', 'last_name', 'email', 'phone', 'message', 'created_at']
+    compressed_fields = True
+    list_filter_submit = True
+
+    def has_add_permission(self, request):
+        return False
 
 
 # @admin.register(ProductGallery)

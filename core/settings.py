@@ -99,18 +99,23 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', 'lyn_furniture'),
+#         'USER': os.environ.get('DB_USER', 'lyn_user'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+#         'HOST': os.environ.get('DB_HOST', 'localhost'),
+#         'PORT': os.environ.get('DB_PORT', '5432'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'lyn_furniture'),
-        'USER': os.environ.get('DB_USER', 'lyn_user'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'lyns.sqlite3',
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -256,6 +261,11 @@ UNFOLD = {
                         "icon": "shopping_cart",
                         "link": lambda request: "/admin/orders/order/",
                     },
+                    {
+                        "title": "Contact Messages",
+                        "icon": "mail",
+                        "link": lambda request: "/admin/catalog/contactmessage/",
+                    },
                     # {
                     #     "title": "Order Items",
                     #     "icon": "receipt_long",
@@ -312,7 +322,25 @@ def environment_callback(request):
 
 def dashboard_callback(request, context):
     """
-    Callback to customize dashboard
+    Callback to customize dashboard — moves ContactMessage into the Orders group.
     """
-    context.update({})
+    app_list = context.get('app_list', [])
+
+    # Pull ContactMessage out of catalog
+    contact_model = None
+    for app in app_list:
+        if app.get('app_label') == 'catalog':
+            for i, model in enumerate(app['models']):
+                if model.get('object_name') == 'ContactMessage':
+                    contact_model = app['models'].pop(i)
+                    break
+            break
+
+    # Insert it into orders
+    if contact_model:
+        for app in app_list:
+            if app.get('app_label') == 'orders':
+                app['models'].append(contact_model)
+                break
+
     return context

@@ -78,7 +78,7 @@
             <div class="flex items-center gap-3">
 
                 <!-- Contact Us (desktop) -->
-                <a href="#" class="hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-gray-300 text-gray-700 hover:border-blue-600 hover:text-blue-600 font-medium text-sm transition-all">
+                <a href="{% url 'catalog:contact' %}" class="hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-gray-300 text-gray-700 hover:border-blue-600 hover:text-blue-600 font-medium text-sm transition-all">
                     Contact Us
                 </a>
 
@@ -113,7 +113,7 @@
                 <a href="{% url 'catalog:category_list' %}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Shop</a>
                 <a href="{% url 'catalog:home' %}#store-location" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Our Stores</a>
                 <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Financing</a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Contact Us</a>
+                <a href="{% url 'catalog:contact' %}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Contact Us</a>
                 <a href="{% url 'cart:cart_page' %}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors py-1">Cart</a>
                 <!-- Social Icons row -->
                 <div class="flex items-center gap-4 pt-3 mt-1 border-t border-gray-100">

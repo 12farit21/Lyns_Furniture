@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
-from .models import Category, Product
+from .models import Category, Product, ContactMessage
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -111,6 +111,20 @@ def product_detail_json(request, product_slug):
     }
 
     return JsonResponse(product_data)
+
+
+def contact_view(request):
+    success = False
+    if request.method == 'POST':
+        ContactMessage.objects.create(
+            first_name=request.POST.get('first_name', '').strip(),
+            last_name=request.POST.get('last_name', '').strip(),
+            email=request.POST.get('email', '').strip(),
+            phone=request.POST.get('phone', '').strip(),
+            message=request.POST.get('message', '').strip(),
+        )
+        success = True
+    return render(request, 'catalog/contact.html', {'success': success})
 
 
 def privacy_view(request):

@@ -264,3 +264,22 @@ class ProductGallery(models.Model):
         if self.is_primary:
             ProductGallery.objects.filter(product=self.product).exclude(id=self.id).update(is_primary=False)
         super().save(*args, **kwargs)
+
+
+class ContactMessage(models.Model):
+    """Contact form submission"""
+    first_name = models.CharField(max_length=100, verbose_name=_('First Name'))
+    last_name = models.CharField(max_length=100, verbose_name=_('Last Name'))
+    email = models.EmailField(verbose_name=_('Email'))
+    phone = models.CharField(max_length=50, blank=True, verbose_name=_('Phone'))
+    message = models.TextField(verbose_name=_('Message'))
+    is_read = models.BooleanField(default=False, verbose_name=_('Read'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Received at'))
+
+    class Meta:
+        verbose_name = _('Contact Message')
+        verbose_name_plural = _('Contact Messages')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} — {self.email}"
