@@ -50,7 +50,7 @@ def product_detail_json(request, product_slug):
     Includes multiple gallery images and related products
     """
     product = get_object_or_404(
-        Product.objects.prefetch_related('variants', 'gallery_images__variant'),
+        Product.objects.prefetch_related('variants', 'sizes', 'gallery_images__variant'),
         slug=product_slug,
         is_active=True
     )
@@ -81,6 +81,14 @@ def product_detail_json(request, product_slug):
                 'is_active': variant.is_active
             }
             for variant in product.get_available_variants()
+        ],
+        'sizes': [
+            {
+                'id': size.id,
+                'name': size.name,
+                'display_name': size.get_display_name(),
+            }
+            for size in product.sizes.filter(is_active=True)
         ],
         'image': product.get_primary_image_url(),
         'gallery_images': [

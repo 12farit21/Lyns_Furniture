@@ -147,15 +147,24 @@ class OrderItem(models.Model):
         blank=True,
         verbose_name=_('Color')
     )
+    size_display_name = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name=_('Size')
+    )
 
     class Meta:
         verbose_name = _('Order item')
         verbose_name_plural = _('Order items')
 
     def __str__(self):
+        extras = []
         if self.variant_display_name:
-            return f'{self.product.name} ({self.variant_display_name}) x {self.quantity}'
-        return f'{self.product.name} x {self.quantity}'
+            extras.append(self.variant_display_name)
+        if self.size_display_name:
+            extras.append(self.size_display_name)
+        suffix = f' ({", ".join(extras)})' if extras else ''
+        return f'{self.product.name}{suffix} x {self.quantity}'
 
     def get_total_price(self):
         """Return total price for this order item"""

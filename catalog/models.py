@@ -266,6 +266,53 @@ class ProductGallery(models.Model):
         super().save(*args, **kwargs)
 
 
+class ProductSize(models.Model):
+    """Product size model (Twin, Full, Queen, King, etc.)"""
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='sizes',
+        verbose_name=_('Product')
+    )
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_('Size')
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name=_('Active')
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_('Created at')
+    )
+
+    class Meta:
+        verbose_name = _('Product size')
+        verbose_name_plural = _('Product sizes')
+        ordering = ['name']
+
+    def __str__(self):
+        return f"{self.product.name} - {self.name}"
+
+    def get_display_name(self):
+        return self.name or ''
+
+    def clean(self):
+        from django.core.exceptions import ValidationError
+
+        if not self.name:
+            raise ValidationError(_('The Size field is required'))
+
+        qs = ProductSize.objects.filter(product=self.product)
+        if self.pk:
+            qs = qs.exclude(pk=self.pk)
+
+        if qs.filter(name=self.name).exists():
+            raise ValidationError(_('This size already exists'))
+
+
 class ContactMessage(models.Model):
     """Contact form submission"""
     first_name = models.CharField(max_length=100, verbose_name=_('First Name'))

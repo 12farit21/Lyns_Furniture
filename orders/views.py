@@ -26,17 +26,21 @@ def order_create(request):
 
             # Create order items
             for item in cart:
-                # Get variant display name if variant exists
                 variant_display_name = ''
                 if item.get('variant'):
                     variant_display_name = item['variant'].get_display_name()
+
+                size_display_name = ''
+                if item.get('size'):
+                    size_display_name = item['size'].get_display_name()
 
                 OrderItem.objects.create(
                     order=order,
                     product=item['product'],
                     price=item['price'],
                     quantity=item['quantity'],
-                    variant_display_name=variant_display_name
+                    variant_display_name=variant_display_name,
+                    size_display_name=size_display_name,
                 )
 
             # Clear the cart

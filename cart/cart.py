@@ -19,21 +19,21 @@ class Cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
-    def add(self, product, quantity=1, update_quantity=False, variant=None):
+    def add(self, product, quantity=1, update_quantity=False, variant=None, size=None):
         """
         Add a product to the cart or update its quantity
         """
-        # Generate composite key for variant-specific items
-        if variant:
-            cart_key = f"{product.id}_{variant.id}"
-        else:
-            cart_key = str(product.id)
+        # Generate composite key for color+size-specific items
+        variant_part = str(variant.id) if variant else ''
+        size_part = str(size.id) if size else ''
+        cart_key = f"{product.id}_{variant_part}_{size_part}"
 
         if cart_key not in self.cart:
             self.cart[cart_key] = {
                 'quantity': 0,
                 'price': str(product.price),
-                'variant_id': variant.id if variant else None
+                'variant_id': variant.id if variant else None,
+                'size_id': size.id if size else None,
             }
 
         if update_quantity:
@@ -49,15 +49,13 @@ class Cart:
         """
         self.session.modified = True
 
-    def remove(self, product, variant=None):
+    def remove(self, product, variant=None, size=None):
         """
         Remove a product from the cart
         """
-        # Generate composite key for variant-specific items
-        if variant:
-            cart_key = f"{product.id}_{variant.id}"
-        else:
-            cart_key = str(product.id)
+        variant_part = str(variant.id) if variant else ''
+        size_part = str(size.id) if size else ''
+        cart_key = f"{product.id}_{variant_part}_{size_part}"
 
         if cart_key in self.cart:
             del self.cart[cart_key]
@@ -67,7 +65,7 @@ class Cart:
         """
         Iterate over the items in the cart and get the products from the database
         """
-        from catalog.models import ProductVariant
+        from catalog.models import ProductVariant, ProductSize
 
         # Parse cart keys to extract product IDs
         product_ids = []
@@ -89,16 +87,27 @@ class Cart:
             product = products_dict[product_id]
             item_data['product'] = product
 
-            # Add variant object if variant_id exists
+            # Add variant (color) object if variant_id exists
             variant_id = item_data.get('variant_id')
             if variant_id:
                 try:
                     variant = ProductVariant.objects.get(id=variant_id, product=product)
                     item_data['variant'] = variant
                 except ProductVariant.DoesNotExist:
-                    item_data['variant'] = None  # Variant deleted, handle gracefully
+                    item_data['variant'] = None
             else:
                 item_data['variant'] = None
+
+            # Add size object if size_id exists
+            size_id = item_data.get('size_id')
+            if size_id:
+                try:
+                    size = ProductSize.objects.get(id=size_id, product=product)
+                    item_data['size'] = size
+                except ProductSize.DoesNotExist:
+                    item_data['size'] = None
+            else:
+                item_data['size'] = None
 
             item_data['price'] = Decimal(item_data['price'])
             item_data['total_price'] = item_data['price'] * item_data['quantity']
@@ -139,6 +148,7 @@ class Cart:
             # Get variant-specific image or fallback to product image
             image_url = self._get_variant_image_url(product, variant)
 
+            size = item.get('size')
             items.append({
                 'product_id': product.id,
                 'product_name': product.name,
@@ -147,7 +157,9 @@ class Cart:
                 'price': str(item['price']),
                 'total_price': str(item['total_price']),
                 'variant_id': variant.id if variant else None,
-                'variant_display_name': variant.get_display_name() if variant else None
+                'variant_display_name': variant.get_display_name() if variant else None,
+                'size_id': size.id if size else None,
+                'size_display_name': size.get_display_name() if size else None,
             })
 
         return {

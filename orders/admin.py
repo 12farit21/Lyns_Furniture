@@ -9,8 +9,8 @@ class OrderItemInline(TabularInline):
     model = OrderItem
     # raw_id_fields = ['product']
     extra = 0
-    readonly_fields = ['price', 'quantity', 'variant_display_name']
-    fields = ['product', 'variant_display_name', 'price', 'quantity']
+    readonly_fields = ['price', 'quantity', 'variant_display_name', 'size_display_name']
+    fields = ['product', 'variant_display_name', 'size_display_name', 'price', 'quantity']
 
 
 @admin.register(Order)

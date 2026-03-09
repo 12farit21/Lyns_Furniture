@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin, TabularInline
 from unfold.decorators import display
-from .models import Category, Product, ProductGallery, ProductVariant, ContactMessage
+from .models import Category, Product, ProductGallery, ProductVariant, ProductSize, ContactMessage
 
 
 @admin.register(Category)
@@ -36,6 +36,13 @@ class CategoryAdmin(ModelAdmin):
 class ProductVariantInline(TabularInline):
     """Inline admin for product variants (Color)"""
     model = ProductVariant
+    extra = 0
+    fields = ['name', 'is_active']
+
+
+class ProductSizeInline(TabularInline):
+    """Inline admin for product sizes"""
+    model = ProductSize
     extra = 0
     fields = ['name', 'is_active']
 
@@ -93,7 +100,7 @@ class ProductAdmin(ModelAdmin):
     list_editable = ['price', 'price_before_discount', 'status', 'is_active', 'is_featured']
     # date_hierarchy = 'created_at'
     readonly_fields = ['created_at']
-    inlines = [ProductVariantInline, ProductGalleryInline]
+    inlines = [ProductVariantInline, ProductSizeInline, ProductGalleryInline]
     compressed_fields = True
     list_filter_submit = True
     list_fullwidth = True

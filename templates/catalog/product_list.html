@@ -213,7 +213,7 @@ function buildModalHTML(p) {
 
     const variantOptions = p.colors && p.colors.length ? `
         <div class="mt-4">
-            <p class="text-sm font-semibold text-gray-700 mb-2">Variant:</p>
+            <p class="text-sm font-semibold text-gray-700 mb-2">Color:</p>
             <div class="flex flex-wrap gap-2" id="modal-variants">
                 ${p.colors.map(v => `
                     <button
@@ -221,6 +221,21 @@ function buildModalHTML(p) {
                         data-variant-id="${v.id}"
                         onclick="selectModalVariant(this)"
                     >${v.display_name || v.name}</button>
+                `).join('')}
+            </div>
+        </div>
+    ` : '';
+
+    const sizeOptions = p.sizes && p.sizes.length ? `
+        <div class="mt-4">
+            <p class="text-sm font-semibold text-gray-700 mb-2">Size:</p>
+            <div class="flex flex-wrap gap-2" id="modal-sizes">
+                ${p.sizes.map(s => `
+                    <button
+                        class="modal-size-btn px-3 py-1.5 rounded-lg border-2 text-sm font-medium transition-all border-gray-300 hover:border-blue-500"
+                        data-size-id="${s.id}"
+                        onclick="selectModalSize(this)"
+                    >${s.display_name || s.name}</button>
                 `).join('')}
             </div>
         </div>
@@ -261,6 +276,7 @@ function buildModalHTML(p) {
                     <p class="text-gray-600 leading-relaxed mb-4">${p.description}</p>
 
                     ${variantOptions}
+                    ${sizeOptions}
 
                     <div class="mt-auto pt-6">
                         <!-- Quantity selector -->
@@ -281,6 +297,7 @@ function buildModalHTML(p) {
                             class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-3 transition-all"
                             data-product-id="${p.id}"
                             data-variant-id=""
+                            data-size-id=""
                         >
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
                             Add to Cart
@@ -332,6 +349,16 @@ function selectModalVariant(btn) {
     }
 }
 
+function selectModalSize(btn) {
+    document.querySelectorAll('.modal-size-btn').forEach(b => {
+        b.classList.remove('border-blue-600', 'bg-blue-50');
+        b.classList.add('border-gray-300');
+    });
+    btn.classList.remove('border-gray-300');
+    btn.classList.add('border-blue-600', 'bg-blue-50');
+    document.getElementById('modal-add-cart-btn').dataset.sizeId = btn.dataset.sizeId;
+}
+
 // Auto-open modal if ?open=<slug> param is present in URL
 document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(window.location.search);
@@ -351,6 +378,10 @@ function initModalInteractions(p) {
     // Auto-select first variant if available
     const firstVariantBtn = document.querySelector('.modal-variant-btn');
     if (firstVariantBtn) selectModalVariant(firstVariantBtn);
+
+    // Auto-select first size if available
+    const firstSizeBtn = document.querySelector('.modal-size-btn');
+    if (firstSizeBtn) selectModalSize(firstSizeBtn);
 
     // Quantity controls
     const qtyInput = document.getElementById('modal-qty-input');
@@ -375,10 +406,11 @@ function initModalInteractions(p) {
     addBtn.addEventListener('click', function() {
         const productId = this.dataset.productId;
         const variantId = this.dataset.variantId;
+        const sizeId    = this.dataset.sizeId;
         const quantity  = parseInt(qtyInput.value) || 1;
         const originalHTML = this.innerHTML;
 
-        const body = 'quantity=' + quantity + (variantId ? '&color_id=' + variantId : '');
+        const body = 'quantity=' + quantity + (variantId ? '&color_id=' + variantId : '') + (sizeId ? '&size_id=' + sizeId : '');
 
         fetch('/cart/add/' + productId + '/', {
             method: 'POST',

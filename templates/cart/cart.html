@@ -47,7 +47,8 @@
                 {% for item in cart %}
                 <div class="bg-white rounded-xl shadow-md p-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center"
                      data-product-id="{{ item.product.id }}"
-                     data-variant-id="{{ item.variant_id|default:'' }}">
+                     data-variant-id="{{ item.variant_id|default:'' }}"
+                     data-size-id="{{ item.size_id|default:'' }}">
 
                     <!-- Product Image -->
                     <div class="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 overflow-hidden rounded-lg">
@@ -61,8 +62,10 @@
                     <!-- Product Info -->
                     <div class="flex-1 min-w-0">
                         <h3 class="font-semibold text-gray-900 truncate">{{ item.product.name }}</h3>
-                        {% if item.variant %}
-                        <p class="text-sm text-gray-500 mt-0.5">{{ item.variant.get_display_name }}</p>
+                        {% if item.variant or item.size %}
+                        <p class="text-sm text-gray-500 mt-0.5">
+                            {% if item.variant %}Color: {{ item.variant.get_display_name }}{% endif %}{% if item.variant and item.size %} &bull; {% endif %}{% if item.size %}Size: {{ item.size.get_display_name }}{% endif %}
+                        </p>
                         {% endif %}
                         <p class="text-blue-600 font-bold mt-1">${{ item.price }}</p>
                     </div>
@@ -74,6 +77,7 @@
                             data-action="decrease"
                             data-product-id="{{ item.product.id }}"
                             data-variant-id="{{ item.variant_id|default:'' }}"
+                            data-size-id="{{ item.size_id|default:'' }}"
                             data-current="{{ item.quantity }}"
                         >−</button>
                         <span class="w-8 text-center font-semibold text-gray-900">{{ item.quantity }}</span>
@@ -82,6 +86,7 @@
                             data-action="increase"
                             data-product-id="{{ item.product.id }}"
                             data-variant-id="{{ item.variant_id|default:'' }}"
+                            data-size-id="{{ item.size_id|default:'' }}"
                             data-current="{{ item.quantity }}"
                         >+</button>
                     </div>
@@ -96,6 +101,7 @@
                         class="cart-remove-btn p-2 text-gray-400 hover:text-red-500 transition-colors flex-shrink-0"
                         data-product-id="{{ item.product.id }}"
                         data-variant-id="{{ item.variant_id|default:'' }}"
+                        data-size-id="{{ item.size_id|default:'' }}"
                         title="Remove item"
                     >
                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -123,7 +129,7 @@
                 <div class="space-y-3 mb-6 pb-6 border-b border-gray-100">
                     {% for item in cart %}
                     <div class="flex justify-between text-sm text-gray-600">
-                        <span class="truncate pr-2">{{ item.product.name }}{% if item.variant %} ({{ item.variant.get_display_name }}){% endif %} × {{ item.quantity }}</span>
+                        <span class="truncate pr-2">{{ item.product.name }}{% if item.variant or item.size %} ({% if item.variant %}{{ item.variant.get_display_name }}{% endif %}{% if item.variant and item.size %}, {% endif %}{% if item.size %}{{ item.size.get_display_name }}{% endif %}){% endif %} × {{ item.quantity }}</span>
                         <span class="font-medium text-gray-900 flex-shrink-0">${{ item.total_price }}</span>
                     </div>
                     {% endfor %}
@@ -159,10 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             const productId = this.dataset.productId;
             const variantId = this.dataset.variantId;
+            const sizeId = this.dataset.sizeId;
             const current = parseInt(this.dataset.current);
             const action = this.dataset.action;
             const newQty = action === 'increase' ? current + 1 : current - 1;
-            updateCartItem(productId, variantId, newQty);
+            updateCartItem(productId, variantId, sizeId, newQty);
         });
     });
 
@@ -171,13 +178,14 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             const productId = this.dataset.productId;
             const variantId = this.dataset.variantId;
-            removeCartItem(productId, variantId);
+            const sizeId = this.dataset.sizeId;
+            removeCartItem(productId, variantId, sizeId);
         });
     });
 });
 
-function updateCartItem(productId, variantId, quantity) {
-    const body = 'quantity=' + quantity + (variantId ? '&variant_id=' + variantId : '');
+function updateCartItem(productId, variantId, sizeId, quantity) {
+    const body = 'quantity=' + quantity + (variantId ? '&variant_id=' + variantId : '') + (sizeId ? '&size_id=' + sizeId : '');
     fetch('/cart/update/' + productId + '/', {
         method: 'POST',
         headers: {
@@ -194,8 +202,11 @@ function updateCartItem(productId, variantId, quantity) {
     .catch(() => alert('Network error.'));
 }
 
-function removeCartItem(productId, variantId) {
-    const body = variantId ? 'variant_id=' + variantId : '';
+function removeCartItem(productId, variantId, sizeId) {
+    const parts = [];
+    if (variantId) parts.push('variant_id=' + variantId);
+    if (sizeId) parts.push('size_id=' + sizeId);
+    const body = parts.join('&');
     fetch('/cart/remove/' + productId + '/', {
         method: 'POST',
         headers: {
