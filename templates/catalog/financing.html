@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Financing Options — Lyn's Furniture Miami{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Page Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-3">Flexible Financing Options</h1>
+            <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+                At Lyn's Furniture Miami, we make it easy to furnish your home today. Choose from trusted lease-to-own partners with low payments, no large upfront costs, and options for all credit types. Get approved quickly and enjoy your new furniture now — pay over time.
+            </p>
+        </div>
+
+        <!-- Intro Banner / Call to Action -->
+        <div class="bg-gradient-to-r from-teal-500 to-teal-700 rounded-2xl shadow-lg p-8 md:p-12 text-center text-white mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Get Your Furniture Today — Pay Over Time!</h2>
+            <p class="text-xl mb-6">Low lease payments • Approvals up to $5,000–$7,500 • No credit needed*</p>
+            <a href="/contact/" class="inline-block bg-white text-teal-700 font-semibold text-lg px-8 py-4 rounded-xl hover:bg-gray-100 transition-all shadow-md">
+                Contact Us to Apply
+            </a>
+            <p class="text-sm mt-4 opacity-90">*Subject to approval. We perform a credit check. "No credit needed" does not mean no credit check.</p>
+        </div>
+
+        <!-- Financing Providers Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Kafene Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+                <div class="bg-gradient-to-r from-green-400 to-green-600 p-6 text-center">
+                    <img src="{% static 'images/kafene.png' %}" alt="Kafene - Get up to $5,000 today" class="mx-auto h-24 object-contain">
+                </div>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Kafene</h3>
+                    <p class="text-gray-600 mb-4">
+                        Get up to <strong>$5,000</strong> today with low lease payments. No credit needed — perfect for flexible lease-to-own on furniture and more.
+                    </p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Quick application
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Low monthly payments
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Lease-to-own flexibility
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Koalafi Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+                <div class="bg-gradient-to-r from-teal-500 to-teal-700 p-6 text-center">
+                    <img src="{% static 'images/Koalafi.png' %}" alt="Koalafi - Lease-to-own, No credit needed" class="mx-auto h-24 object-contain">
+                </div>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Koalafi</h3>
+                    <p class="text-gray-600 mb-4">
+                        Lease-to-own with no credit needed*. Enjoy it now and pay over time — up to higher approval amounts on quality furniture.
+                    </p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Pay over time
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            High approval rates
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Own it eventually
+                        </li>
+                    </ul>
+                    <p class="text-sm text-gray-500">*We perform a credit check. No credit needed does not imply no credit check.</p>
+                </div>
+
+            </div>
+
+            <!-- American First Finance Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+                <div class="bg-gradient-to-r from-orange-400 to-orange-600 p-6 text-center">
+                    <img src="{% static 'images/American First Finance.png' %}" alt="American First Finance - All credit welcome" class="mx-auto h-24 object-contain">
+                </div>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">American First Finance</h3>
+                    <p class="text-gray-600 mb-4">
+                        All credit welcome. Pay over time with flexible rent-to-own options designed to fit your life — not your credit score.
+                    </p>
+                    <ul class="space-y-2 text-gray-700 mb-6">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Approvals from $300–$5,000
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Imperfect credit OK
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Wide network of stores
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Final Disclaimer & CTA -->
+        <div class="text-center mt-12 text-gray-600">
+            <p class="text-sm">These are lease-to-own / rent-to-own programs. Approval is not guaranteed and depends on meeting each provider's requirements. Early purchase options may be available for reduced total cost. Visit our stores or apply online to get started. Questions? Call us at (305) 685-9090.</p>
+            <a href="{% url 'catalog:contact' %}" class="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold">
+                Contact Us for More Details →
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

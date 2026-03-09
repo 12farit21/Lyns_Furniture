@@ -135,6 +135,10 @@ def terms_view(request):
     return render(request, 'catalog/terms.html')
 
 
+def financing_view(request):
+    return render(request, 'catalog/financing.html')
+
+
 @ensure_csrf_cookie
 def home_view(request):
     """
