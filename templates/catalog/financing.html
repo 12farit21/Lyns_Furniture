@@ -19,7 +19,7 @@
         <div class="bg-gradient-to-r from-teal-500 to-teal-700 rounded-2xl shadow-lg p-8 md:p-12 text-center text-white mb-12">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Get Your Furniture Today — Pay Over Time!</h2>
             <p class="text-xl mb-6">Low lease payments • Approvals up to $5,000–$7,500 • No credit needed*</p>
-            <a href="/contact/" class="inline-block bg-white text-teal-700 font-semibold text-lg px-8 py-4 rounded-xl hover:bg-gray-100 transition-all shadow-md">
+            <a href="{% url 'catalog:contact' %}" class="inline-block bg-white text-teal-700 font-semibold text-lg px-8 py-4 rounded-xl hover:bg-gray-100 transition-all shadow-md">
                 Contact Us to Apply
             </a>
             <p class="text-sm mt-4 opacity-90">*Subject to approval. We perform a credit check. "No credit needed" does not mean no credit check.</p>
@@ -79,7 +79,7 @@
                             Own it eventually
                         </li>
                     </ul>
-                    <p class="text-sm text-gray-500">*We perform a credit check. No credit needed does not imply no credit check.</p>
+                    
                 </div>
 
             </div>
@@ -124,4 +124,6 @@
 
     </div>
 </div>
+
+{% include 'partials/footer.html' %}
 {% endblock %}
