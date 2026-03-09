@@ -53,6 +53,7 @@ class Product(models.Model):
     NEW_ARRIVAL = 'new_arrival'
     HOT_DEAL = 'hot_deal'
     LIMITED_STOCK = 'limited_stock'
+    EXCLUSIVE = 'exclusive'
 
     STATUS_CHOICES = [
         (IN_STOCK, _('In Stock')),
@@ -61,6 +62,7 @@ class Product(models.Model):
         (NEW_ARRIVAL, _('New Arrival')),
         (HOT_DEAL, _('Hot Deal')),
         (LIMITED_STOCK, _('Limited Stock')),
+        (EXCLUSIVE, _("Exclusive to Lyn's Furniture")),
     ]
 
     category = models.ForeignKey(
