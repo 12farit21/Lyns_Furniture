@@ -6,7 +6,7 @@
         <div class="flex items-center justify-between h-16">
 
             <!-- ── Block 1: Logo ── -->
-            <div class="flex items-center flex-shrink-0">
+            <div class="flex items-center flex-1">
                 <a href="{% url 'catalog:home' %}">
                     <img src="{% static 'images/logo.png' %}" alt="Lyn's Furniture Miami" class="h-10 w-auto" />
                 </a>
@@ -23,7 +23,7 @@
             </div>
 
             <!-- ── Block 3 + 4: Financing & Social ── -->
-            <div class="hidden md:flex items-center">
+            <div class="hidden md:flex items-center justify-center flex-1">
 
                 <!-- Block 3: Financing -->
                 <a href="{% url 'catalog:financing' %}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Financing</a>
@@ -75,7 +75,7 @@
             </div>
 
             <!-- ── Block 5: Contact Us + Cart + Mobile button ── -->
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 flex-1 justify-end">
 
                 <!-- Contact Us (desktop) -->
                 <a href="{% url 'catalog:contact' %}" class="hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-gray-300 text-gray-700 hover:border-blue-600 hover:text-blue-600 font-medium text-sm transition-all">
