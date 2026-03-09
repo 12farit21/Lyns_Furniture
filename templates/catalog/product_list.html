@@ -148,7 +148,7 @@
     <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
     <!-- Modal Box -->
     <div class="relative z-10 flex items-center justify-center min-h-full p-4" onclick="closeProductModal()">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[92vh] overflow-y-auto" onclick="event.stopPropagation()">
             <!-- Loading state -->
             <div id="modal-loading" class="flex items-center justify-center py-24">
                 <div class="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
@@ -242,8 +242,8 @@ function buildModalHTML(p) {
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- Image Gallery -->
                 <div>
-                    <div class="aspect-square overflow-hidden rounded-xl mb-3">
-                        <img id="modal-main-img" src="${primaryImg}" alt="${p.name}" class="w-full h-full object-cover" />
+                    <div class="aspect-[4/3] overflow-hidden rounded-xl mb-3 bg-gray-50">
+                        <img id="modal-main-img" src="${primaryImg}" alt="${p.name}" class="w-full h-full object-contain" />
                     </div>
                     ${galleryThumbs ? `<div class="flex gap-2 flex-wrap">${galleryThumbs}</div>` : ''}
                 </div>
