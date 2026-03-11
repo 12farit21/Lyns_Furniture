@@ -10,25 +10,18 @@ def cart_add(request, product_id):
     """
     Add a product to the cart
     """
-    from catalog.models import ProductVariant, ProductSize
+    from catalog.models import ProductVariant
 
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id, is_active=True)
     quantity = int(request.POST.get('quantity', 1))
 
-    # Extract and validate variant (color)
-    variant_id = request.POST.get('color_id')
+    variant_id = request.POST.get('variant_id')
     variant = None
     if variant_id:
         variant = get_object_or_404(ProductVariant, id=variant_id, product=product, is_active=True)
 
-    # Extract and validate size
-    size_id = request.POST.get('size_id')
-    size = None
-    if size_id:
-        size = get_object_or_404(ProductSize, id=size_id, product=product, is_active=True)
-
-    cart.add(product=product, quantity=quantity, variant=variant, size=size, update_quantity=False)
+    cart.add(product=product, quantity=quantity, variant=variant, update_quantity=False)
 
     return JsonResponse({
         'status': 'success',
@@ -43,7 +36,7 @@ def cart_remove(request, product_id):
     """
     Remove a product from the cart
     """
-    from catalog.models import ProductVariant, ProductSize
+    from catalog.models import ProductVariant
 
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
@@ -56,15 +49,7 @@ def cart_remove(request, product_id):
         except ProductVariant.DoesNotExist:
             pass
 
-    size_id = request.POST.get('size_id')
-    size = None
-    if size_id:
-        try:
-            size = ProductSize.objects.get(id=size_id, product=product)
-        except ProductSize.DoesNotExist:
-            pass
-
-    cart.remove(product, variant=variant, size=size)
+    cart.remove(product, variant=variant)
 
     return JsonResponse({
         'status': 'success',
@@ -79,7 +64,7 @@ def cart_update(request, product_id):
     """
     Update product quantity in the cart
     """
-    from catalog.models import ProductVariant, ProductSize
+    from catalog.models import ProductVariant
 
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
@@ -93,19 +78,11 @@ def cart_update(request, product_id):
         except ProductVariant.DoesNotExist:
             pass
 
-    size_id = request.POST.get('size_id')
-    size = None
-    if size_id:
-        try:
-            size = ProductSize.objects.get(id=size_id, product=product)
-        except ProductSize.DoesNotExist:
-            pass
-
     if quantity > 0:
-        cart.add(product=product, quantity=quantity, variant=variant, size=size, update_quantity=True)
+        cart.add(product=product, quantity=quantity, variant=variant, update_quantity=True)
         message = 'Количество обновлено'
     else:
-        cart.remove(product, variant=variant, size=size)
+        cart.remove(product, variant=variant)
         message = 'Товар удален из корзины'
 
     return JsonResponse({

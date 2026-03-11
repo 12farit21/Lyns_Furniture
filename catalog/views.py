@@ -50,7 +50,7 @@ def product_detail_json(request, product_slug):
     Includes multiple gallery images and related products
     """
     product = get_object_or_404(
-        Product.objects.prefetch_related('variants', 'sizes', 'gallery_images__variant'),
+        Product.objects.prefetch_related('variants', 'gallery_images__variant'),
         slug=product_slug,
         is_active=True
     )
@@ -65,6 +65,9 @@ def product_detail_json(request, product_slug):
     gallery_images = product.gallery_images.all()
 
     # Build product data
+    active_variants = list(product.get_available_variants())
+    seen_colors = list(dict.fromkeys(v.color for v in active_variants if v.color))
+
     product_data = {
         'id': product.id,
         'name': product.name,
@@ -73,22 +76,15 @@ def product_detail_json(request, product_slug):
         'price': str(product.price),
         'status': product.get_status_display(),
         'status_code': product.status,
-        'colors': [
+        'colors': seen_colors,
+        'variants': [
             {
-                'id': variant.id,
-                'name': variant.name,
-                'display_name': variant.get_display_name(),
-                'is_active': variant.is_active
+                'id': v.id,
+                'color': v.color,
+                'size': v.size,
+                'price': str(v.get_effective_price()),
             }
-            for variant in product.get_available_variants()
-        ],
-        'sizes': [
-            {
-                'id': size.id,
-                'name': size.name,
-                'display_name': size.get_display_name(),
-            }
-            for size in product.sizes.filter(is_active=True)
+            for v in active_variants
         ],
         'image': product.get_primary_image_url(),
         'gallery_images': [
@@ -98,7 +94,7 @@ def product_detail_json(request, product_slug):
                 'is_primary': img.is_primary,
                 'order': img.order,
                 'variant_id': img.variant_id,
-                'variant_name': img.variant.get_display_name() if img.variant else None
+                'variant_color': img.variant.color if img.variant else None,
             }
             for img in gallery_images
         ],

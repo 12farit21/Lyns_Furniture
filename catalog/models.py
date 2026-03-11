@@ -166,9 +166,20 @@ class Product(models.Model):
             return round(discount)
         return None
 
+    def get_unique_colors(self):
+        """Return distinct active colors across all variants."""
+        return (
+            self.variants
+            .filter(is_active=True)
+            .exclude(color='')
+            .values_list('color', flat=True)
+            .distinct()
+            .order_by('color')
+        )
+
 
 class ProductVariant(models.Model):
-    """Product variant model with color and size support"""
+    """Combined color + size variant with optional price override"""
 
     product = models.ForeignKey(
         Product,
@@ -176,9 +187,22 @@ class ProductVariant(models.Model):
         related_name='variants',
         verbose_name=_('Product')
     )
-    name = models.CharField(
+    color = models.CharField(
         max_length=100,
+        blank=True,
         verbose_name=_('Color')
+    )
+    size = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_('Size')
+    )
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        verbose_name=_('Price override')
     )
     is_active = models.BooleanField(
         default=True,
@@ -190,28 +214,38 @@ class ProductVariant(models.Model):
     )
 
     class Meta:
-        verbose_name = _('Product color')
-        verbose_name_plural = _('Product colors')
-        ordering = ['name']
+        verbose_name = _('Product variant')
+        verbose_name_plural = _('Product variants')
+        ordering = ['color', 'size']
+        unique_together = [('product', 'color', 'size')]
 
     def __str__(self):
-        return f"{self.product.name} - {self.name}"
+        parts = [self.product.name]
+        if self.color:
+            parts.append(self.color)
+        if self.size:
+            parts.append(self.size)
+        return ' - '.join(parts)
 
     def get_display_name(self):
-        return self.name or ''
+        return ', '.join(p for p in [self.color, self.size] if p)
+
+    def get_effective_price(self):
+        """Return variant-specific price, or fall back to product base price."""
+        return self.price if self.price is not None else self.product.price
 
     def clean(self):
         from django.core.exceptions import ValidationError
 
-        if not self.name:
-            raise ValidationError(_('The Color field is required'))
+        if not self.color and not self.size:
+            raise ValidationError(_('At least one of Color or Size must be specified.'))
 
         qs = ProductVariant.objects.filter(product=self.product)
         if self.pk:
             qs = qs.exclude(pk=self.pk)
 
-        if qs.filter(name=self.name).exists():
-            raise ValidationError(_('This color already exists'))
+        if qs.filter(color=self.color, size=self.size).exists():
+            raise ValidationError(_('This color/size combination already exists for this product.'))
 
 
 class ProductGallery(models.Model):
@@ -268,51 +302,6 @@ class ProductGallery(models.Model):
         super().save(*args, **kwargs)
 
 
-class ProductSize(models.Model):
-    """Product size model (Twin, Full, Queen, King, etc.)"""
-
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        related_name='sizes',
-        verbose_name=_('Product')
-    )
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Size')
-    )
-    is_active = models.BooleanField(
-        default=True,
-        verbose_name=_('Active')
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_('Created at')
-    )
-
-    class Meta:
-        verbose_name = _('Product size')
-        verbose_name_plural = _('Product sizes')
-        ordering = ['name']
-
-    def __str__(self):
-        return f"{self.product.name} - {self.name}"
-
-    def get_display_name(self):
-        return self.name or ''
-
-    def clean(self):
-        from django.core.exceptions import ValidationError
-
-        if not self.name:
-            raise ValidationError(_('The Size field is required'))
-
-        qs = ProductSize.objects.filter(product=self.product)
-        if self.pk:
-            qs = qs.exclude(pk=self.pk)
-
-        if qs.filter(name=self.name).exists():
-            raise ValidationError(_('This size already exists'))
 
 
 class ContactMessage(models.Model):

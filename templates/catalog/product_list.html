@@ -207,6 +207,7 @@ function buildModalHTML(p) {
         <img src="${img.url}" alt="${img.alt_text || p.name}"
              class="gallery-thumb w-16 h-16 object-cover rounded-lg border-2 cursor-pointer transition-all ${i === 0 ? 'border-blue-600' : 'border-transparent hover:border-blue-400'}"
              data-variant-id="${img.variant_id || ''}"
+             data-variant-color="${img.variant_color || ''}"
              onclick="switchModalImage(this, '${img.url}')"
         />
     `).join('') : '';
@@ -214,32 +215,24 @@ function buildModalHTML(p) {
     const variantOptions = p.colors && p.colors.length ? `
         <div class="mt-4">
             <p class="text-sm font-semibold text-gray-700 mb-2">Color:</p>
-            <div class="flex flex-wrap gap-2" id="modal-variants">
-                ${p.colors.map(v => `
+            <div class="flex flex-wrap gap-2" id="modal-colors">
+                ${p.colors.map(color => `
                     <button
-                        class="modal-variant-btn px-3 py-1.5 rounded-lg border-2 text-sm font-medium transition-all border-gray-300 hover:border-blue-500"
-                        data-variant-id="${v.id}"
-                        onclick="selectModalVariant(this)"
-                    >${v.display_name || v.name}</button>
+                        class="modal-color-btn px-3 py-1.5 rounded-lg border-2 text-sm font-medium transition-all border-gray-300 hover:border-blue-500"
+                        data-color="${color}"
+                        onclick="selectModalColor(this)"
+                    >${color}</button>
                 `).join('')}
             </div>
         </div>
     ` : '';
 
-    const sizeOptions = p.sizes && p.sizes.length ? `
-        <div class="mt-4">
+    const sizeOptions = `
+        <div class="mt-4" id="modal-size-section" style="display:none;">
             <p class="text-sm font-semibold text-gray-700 mb-2">Size:</p>
-            <div class="flex flex-wrap gap-2" id="modal-sizes">
-                ${p.sizes.map(s => `
-                    <button
-                        class="modal-size-btn px-3 py-1.5 rounded-lg border-2 text-sm font-medium transition-all border-gray-300 hover:border-blue-500"
-                        data-size-id="${s.id}"
-                        onclick="selectModalSize(this)"
-                    >${s.display_name || s.name}</button>
-                `).join('')}
-            </div>
+            <div class="flex flex-wrap gap-2" id="modal-sizes"></div>
         </div>
-    ` : '';
+    `;
 
     const statusColors = {
         'in_stock':      'bg-green-100 text-green-700',
@@ -281,7 +274,7 @@ function buildModalHTML(p) {
 
                     ${p.category ? `<p class="text-sm text-gray-500 mb-3">Category: <span class="font-medium text-gray-700">${p.category.name}</span></p>` : ''}
 
-                    <p class="text-gray-600 leading-relaxed mb-4">${p.description}</p>
+                    
 
                     ${p.status_code === 'exclusive' ? `
                     <div class="flex items-center gap-2 mb-4 text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-lg px-4 py-2 text-sm font-medium">
@@ -311,12 +304,13 @@ function buildModalHTML(p) {
                             class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-3 transition-all"
                             data-product-id="${p.id}"
                             data-variant-id=""
-                            data-size-id=""
                         >
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
                             Add to Cart
                         </button>
                     </div>
+
+                    <p class="text-gray-600 leading-relaxed mb-4">${p.description}</p>
 
                     <!-- Related products -->
                     ${p.related_products && p.related_products.length ? `
@@ -344,21 +338,50 @@ function switchModalImage(thumb, url) {
     thumb.classList.add('border-blue-600');
 }
 
-function selectModalVariant(btn) {
-    document.querySelectorAll('.modal-variant-btn').forEach(b => {
+function selectModalColor(btn) {
+    document.querySelectorAll('.modal-color-btn').forEach(b => {
         b.classList.remove('border-blue-600', 'bg-blue-50');
         b.classList.add('border-gray-300');
     });
     btn.classList.remove('border-gray-300');
     btn.classList.add('border-blue-600', 'bg-blue-50');
-    document.getElementById('modal-add-cart-btn').dataset.variantId = btn.dataset.variantId;
 
-    // Switch gallery to the first image of the selected variant
-    const variantId = btn.dataset.variantId;
-    if (variantId) {
-        const variantThumb = document.querySelector(`.gallery-thumb[data-variant-id="${variantId}"]`);
-        if (variantThumb) {
-            switchModalImage(variantThumb, variantThumb.src);
+    const selectedColor = btn.dataset.color;
+    const addBtn = document.getElementById('modal-add-cart-btn');
+
+    // Switch gallery to first image matching this color
+    const variantThumb = document.querySelector(`.gallery-thumb[data-variant-color="${selectedColor}"]`);
+    if (variantThumb) switchModalImage(variantThumb, variantThumb.src);
+
+    // Find sizes available for this color
+    const allVariants = window.currentVariants || [];
+    const colorVariants = allVariants.filter(v => v.color === selectedColor);
+    const sizes = [...new Set(colorVariants.map(v => v.size).filter(Boolean))];
+
+    const sizeSection = document.getElementById('modal-size-section');
+    const sizesContainer = document.getElementById('modal-sizes');
+
+    if (sizes.length > 0) {
+        sizeSection.style.display = '';
+        sizesContainer.innerHTML = sizes.map(size => `
+            <button
+                class="modal-size-btn px-3 py-1.5 rounded-lg border-2 text-sm font-medium transition-all border-gray-300 hover:border-blue-500"
+                data-size="${size}"
+                data-color="${selectedColor}"
+                onclick="selectModalSize(this)"
+            >${size}</button>
+        `).join('');
+        addBtn.dataset.variantId = '';
+        // Auto-select if only one size
+        if (sizes.length === 1) document.querySelector('.modal-size-btn').click();
+    } else {
+        sizeSection.style.display = 'none';
+        sizesContainer.innerHTML = '';
+        // Color-only variant: find the variant with this color and empty size
+        const exactVariant = colorVariants.find(v => !v.size);
+        if (exactVariant) {
+            addBtn.dataset.variantId = exactVariant.id;
+            updateModalPrice(exactVariant.price);
         }
     }
 }
@@ -370,7 +393,20 @@ function selectModalSize(btn) {
     });
     btn.classList.remove('border-gray-300');
     btn.classList.add('border-blue-600', 'bg-blue-50');
-    document.getElementById('modal-add-cart-btn').dataset.sizeId = btn.dataset.sizeId;
+
+    const selectedColor = btn.dataset.color;
+    const selectedSize = btn.dataset.size;
+    const allVariants = window.currentVariants || [];
+    const variant = allVariants.find(v => v.color === selectedColor && v.size === selectedSize);
+    if (variant) {
+        document.getElementById('modal-add-cart-btn').dataset.variantId = variant.id;
+        updateModalPrice(variant.price);
+    }
+}
+
+function updateModalPrice(price) {
+    const priceEl = document.querySelector('#modal-content .text-3xl');
+    if (priceEl && price) priceEl.textContent = '$' + parseFloat(price).toFixed(2);
 }
 
 // Auto-open modal if ?open=<slug> param is present in URL
@@ -389,13 +425,12 @@ function initModalInteractions(p) {
     const addBtn = document.getElementById('modal-add-cart-btn');
     if (!addBtn) return;
 
-    // Auto-select first variant if available
-    const firstVariantBtn = document.querySelector('.modal-variant-btn');
-    if (firstVariantBtn) selectModalVariant(firstVariantBtn);
+    // Store variants for use in color/size selection
+    window.currentVariants = p.variants || [];
 
-    // Auto-select first size if available
-    const firstSizeBtn = document.querySelector('.modal-size-btn');
-    if (firstSizeBtn) selectModalSize(firstSizeBtn);
+    // Auto-select first color (which will populate sizes automatically)
+    const firstColorBtn = document.querySelector('.modal-color-btn');
+    if (firstColorBtn) selectModalColor(firstColorBtn);
 
     // Quantity controls
     const qtyInput = document.getElementById('modal-qty-input');
@@ -420,11 +455,10 @@ function initModalInteractions(p) {
     addBtn.addEventListener('click', function() {
         const productId = this.dataset.productId;
         const variantId = this.dataset.variantId;
-        const sizeId    = this.dataset.sizeId;
         const quantity  = parseInt(qtyInput.value) || 1;
         const originalHTML = this.innerHTML;
 
-        const body = 'quantity=' + quantity + (variantId ? '&color_id=' + variantId : '') + (sizeId ? '&size_id=' + sizeId : '');
+        const body = 'quantity=' + quantity + (variantId ? '&variant_id=' + variantId : '');
 
         fetch('/cart/add/' + productId + '/', {
             method: 'POST',
