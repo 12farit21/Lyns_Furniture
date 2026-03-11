@@ -263,7 +263,7 @@ class ProductGallery(models.Model):
         null=True,
         blank=True,
         related_name='images',
-        verbose_name=_('Color')
+        verbose_name=_('Variant')
     )
     image = models.ImageField(
         upload_to='products/%Y/%m/%d/',

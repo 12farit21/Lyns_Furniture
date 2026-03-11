@@ -95,6 +95,7 @@ def product_detail_json(request, product_slug):
                 'order': img.order,
                 'variant_id': img.variant_id,
                 'variant_color': img.variant.color if img.variant else None,
+                'variant_size': img.variant.size if img.variant else None,
             }
             for img in gallery_images
         ],

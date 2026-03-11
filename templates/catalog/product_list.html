@@ -208,6 +208,7 @@ function buildModalHTML(p) {
              class="gallery-thumb w-16 h-16 object-cover rounded-lg border-2 cursor-pointer transition-all ${i === 0 ? 'border-blue-600' : 'border-transparent hover:border-blue-400'}"
              data-variant-id="${img.variant_id || ''}"
              data-variant-color="${img.variant_color || ''}"
+             data-variant-size="${img.variant_size || ''}"
              onclick="switchModalImage(this, '${img.url}')"
         />
     `).join('') : '';
@@ -406,6 +407,12 @@ function selectModalSize(btn) {
         document.getElementById('modal-add-cart-btn').dataset.variantId = variant.id;
         updateModalPrice(variant.price);
     }
+
+    // Switch to image linked to this exact variant (color + size)
+    const variantThumb = document.querySelector(
+        `.gallery-thumb[data-variant-color="${selectedColor}"][data-variant-size="${selectedSize}"]`
+    );
+    if (variantThumb) switchModalImage(variantThumb, variantThumb.src);
 }
 
 function updateModalPrice(price) {
