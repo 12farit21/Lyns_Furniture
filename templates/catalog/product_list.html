@@ -310,7 +310,11 @@ function buildModalHTML(p) {
                         </button>
                     </div>
 
-                    <p class="text-gray-600 leading-relaxed mb-4">${p.description}</p>
+                    ${p.description ? `
+                    <div class="mt-6 pt-6 border-t border-gray-100">
+                        <p class="text-sm font-semibold text-gray-700 mb-2">Description</p>
+                        <p class="text-gray-600 leading-relaxed text-sm">${p.description}</p>
+                    </div>` : ''}
 
                     <!-- Related products -->
                     ${p.related_products && p.related_products.length ? `
@@ -372,8 +376,8 @@ function selectModalColor(btn) {
             >${size}</button>
         `).join('');
         addBtn.dataset.variantId = '';
-        // Auto-select if only one size
-        if (sizes.length === 1) document.querySelector('.modal-size-btn').click();
+        // Auto-select first size
+        document.querySelector('.modal-size-btn').click();
     } else {
         sizeSection.style.display = 'none';
         sizesContainer.innerHTML = '';
